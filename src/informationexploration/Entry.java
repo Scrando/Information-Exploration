@@ -1,7 +1,7 @@
 package informationexploration;
 
 /**
- *
+ * Test
  * @author Brandon
  */
 public class Entry {
