@@ -5,7 +5,8 @@ package informationexploration;
  * @author Brandon
  */
 public class Entry {
-    private String[] keys = {"N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"};
+	int index = 0;
+    private String[] keys = new String[12];
     
     public Entry(){
         return;
@@ -14,7 +15,17 @@ public class Entry {
     public String[] getKeys(){
         return keys;
     }
+	
+	public void add(String s){
+		keys[this.index] = s;
+		index++;
+		return;
+	}
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getYear(){
         return keys[0];
     }
@@ -24,6 +35,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getPrize(){
         return keys[1];
     }
@@ -33,6 +48,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getName(){
         return keys[2];
     }
@@ -42,6 +61,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getLongname(){
         return keys[3];
     }
@@ -51,6 +74,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getGender(){
         return keys[4];
     }
@@ -60,6 +87,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getPhoto(){
         return keys[5];
     }
@@ -69,6 +100,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getCountry(){
         return keys[6];
     }
@@ -78,6 +113,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getAffiliation(){
         return keys[7];
     }
@@ -87,6 +126,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getBirthyear(){
         return keys[8];
     }
@@ -96,6 +139,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getDeathyear(){
         return keys[9];
     }
@@ -105,6 +152,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Year string and returns it.
+	 * @return Returns the Year string.
+	 */
     public String getBiography(){
         return keys[10];
     }
@@ -114,6 +165,10 @@ public class Entry {
         return;
     }
     
+	/**
+	 * Gets the Lecture string and returns it.
+	 * @return Returns the Lecture string.
+	 */
     public String getLecture(){
         return keys[11];
     }
