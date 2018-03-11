@@ -13,8 +13,10 @@ public class InformationExploration {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		ExtractDB DB = new ExtractDB();
-		Map<String,List<Entry>> DB2 = DB.ExtractDB("Database.txt");
+                Extract Ex = new Extract();
+                Ex.Extract();
+		//ExtractDB DB = new ExtractDB();
+		//Map<String,List<Entry>> DB2 = DB.ExtractDB("Database.txt");
 	}
 	
 }
