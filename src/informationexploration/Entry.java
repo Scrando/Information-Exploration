@@ -1,180 +1,220 @@
 package informationexploration;
 
+import java.util.*;
+
 /**
- * Test
- * @author Brandon
+ * Entry class for the Nobel Database
+ * Contains a hash map with key value pairs with a variety
+ * of information for each Nobel entry
+ * @author Brandon, Nathan
  */
 public class Entry {
-	int index = 0;
-    private String[] keys = new String[12];
+        private Map keys;
     
+    /**
+     * Creator for Entry object
+     */
     public Entry(){
-        return;
+        this.keys = new HashMap();
     }
     
-    public String[] getKeys(){
-        return keys;
-    }
-	
-	public void add(String s){
-		keys[this.index] = s;
-		index++;
-		return;
-	}
-    
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getYear(){
-        return keys[0];
+    /**
+     * Getter for all keys
+     * @return - Set of all keys in this entry
+     */
+    public Set getKeys(){
+        return keys.keySet();
     }
     
-    public void setYear(String s){
-        keys[0] = s;
-        return;
+    /**
+     * getter for year
+     * @return - object mapped to year
+     */
+    public Object getYear(){
+        return this.keys.get("year");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getPrize(){
-        return keys[1];
+    /**
+     * setter for year
+     * @param value - year of Nobel prize
+     */
+    public void setYear(String value){
+        this.keys.put("year", value);
     }
     
-    public void setPrize(String s){
-        keys[1] = s;
-        return;
+    /**
+     * getter for prize
+     * @return - object mapped to prize
+     */
+    public Object getPrize(){
+        return this.keys.get("prize");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getName(){
-        return keys[2];
+    /**
+     * setter for prize
+     * @param value  - Nobel prize
+     */
+    public void setPrize(String value){
+        this.keys.put("prize", value);
     }
     
-    public void setName(String s){
-        keys[2] = s;
-        return;
+    /**
+     * getter for name
+     * @return - object mapped to name
+     */
+    public Object getName(){
+        return this.keys.get("name");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getLongname(){
-        return keys[3];
+    /**
+     * setter for name
+     * @param value - name of prize winner
+     */
+    public void setName(String value){
+        this.keys.put("name", value);
     }
     
-    public void setLongname(String s){
-        keys[3] = s;
-        return;
+    /**
+     * getter for long name
+     * @return - object mapped to long name
+     */
+    public Object getLongname(){
+        return this.keys.get("longname");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getGender(){
-        return keys[4];
+    /**
+     * setter for long name
+     * @param value - long name of prize winner
+     */
+    public void setLongname(String value){
+        this.keys.put("longname", value);
     }
     
-    public void setGender(String s){
-        keys[4] = s;
-        return;
+    /**
+     * getter for gender
+     * @return - object mapped to gender
+     */
+    public Object getGender(){
+        return this.keys.get("gender");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getPhoto(){
-        return keys[5];
+    /**
+     * setter for gender
+     * @param value - gender of prize winner
+     */
+    public void setGender(String value){
+        this.keys.put("gender", value);
     }
     
-    public void setPhoto(String s){
-        keys[5] = s;
-        return;
+    /**
+     * getter for photo
+     * @return - object mapped to photo
+     */
+    public Object getPhoto(){
+        return this.keys.get("photo");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getCountry(){
-        return keys[6];
+    /**
+     * setter for photo
+     * @param value - url for photo of prize winner
+     */
+    public void setPhoto(String value){
+        this.keys.put("photo", value);
     }
     
-    public void setCountry(String s){
-        keys[6] = s;
-        return;
+    /**
+     * getter for country
+     * @return - object mapped to country
+     */
+    public Object getCountry(){
+        return this.keys.get("country");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getAffiliation(){
-        return keys[7];
+    /**
+     * setter for country
+     * @param value - country of prize winner
+     */
+    public void setCountry(String value){
+        this.keys.put("country", value);
     }
     
-    public void setAffiliation(String s){
-        keys[7] = s;
-        return;
+    /**
+     * getter for affiliation
+     * @return - object mapped to affiliation
+     */
+    public Object getAffiliation(){
+        return this.keys.get("affiliation");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getBirthyear(){
-        return keys[8];
+    /**
+     * setter for affiliation
+     * @param value - affiliation of prize winner
+     */
+    public void setAffiliation(String value){
+        this.keys.put("affiliation", value);
     }
     
-    public void setBirthyear(String s){
-        keys[8] = s;
-        return;
+    /**
+     * getter for birth year
+     * @return - object mapped to birth year
+     */
+    public Object getBirthyear(){
+        return this.keys.get("birthyear");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getDeathyear(){
-        return keys[9];
+    /**
+     * setter for birth year
+     * @param value - birth year of prize winner
+     */
+    public void setBirthyear(String value){
+        this.keys.put("birthyear", value);
     }
     
-    public void setDeathyear(String s){
-        keys[9] = s;
-        return;
+    /**
+     * getter for death year
+     * @return - object mapped to death year
+     */
+    public Object getDeathyear(){
+        return this.keys.get("deathyear");
     }
     
-	/**
-	 * Gets the Year string and returns it.
-	 * @return Returns the Year string.
-	 */
-    public String getBiography(){
-        return keys[10];
+    /**
+     * setter for death year
+     * @param value - death year of prize winner
+     */
+    public void setDeathyear(String value){
+        this.keys.put("deathyear", value);
     }
     
-    public void setBiography(String s){
-        keys[10] = s;
-        return;
+    /**
+     * getter for biography
+     * @return - object mapped to biography
+     */
+    public Object getBiography(){
+        return this.keys.get("biography");
     }
     
-	/**
-	 * Gets the Lecture string and returns it.
-	 * @return Returns the Lecture string.
-	 */
-    public String getLecture(){
-        return keys[11];
+    /**
+     * setter for biography
+     * @param value - biography for prize winner
+     */
+    public void setBiography(String value){
+        this.keys.put("biography", value);
     }
     
-    public void setLecture(String s){
-        keys[11] = s;
-        return;
+    /**
+     * getter for lecture
+     * @return - object mapped to lecture
+     */
+    public Object getLecture(){
+        return this.keys.get("lecture");
+    }
+    
+    /**
+     * setter for lecture
+     * @param value - lecture matched to prize winner
+     */
+    public void setLecture(String value){
+        this.keys.put("lecture", value);
     }
 }
