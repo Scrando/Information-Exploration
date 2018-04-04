@@ -9,13 +9,15 @@ import java.util.*;
  * @author Brandon, Nathan
  */
 public class Entry {
-        private Map keys;
+    private Map keys;
+    private List<Prize> prizes;
     
     /**
      * Creator for Entry object
      */
     public Entry(){
         this.keys = new HashMap();
+        this.prizes = new ArrayList();
     }
     
     /**
@@ -26,52 +28,56 @@ public class Entry {
         return keys.keySet();
     }
     
+    // ---------------------------------------------------------------- ID
+    
     /**
-     * getter for year
-     * @return - object mapped to year
+     * getter for id
+     * @return - object mapped to id
      */
-    public Object getYear(){
-        return this.keys.get("year");
+    public Object getId(){
+        return this.keys.get("id");
     }
     
     /**
-     * setter for year
-     * @param value - year of Nobel prize
+     * setter for id
+     * @param value - id of Nobel prize entry
      */
-    public void setYear(String value){
-        this.keys.put("year", value);
+    public void setId(String value){
+        this.keys.put("id", value);
+    }
+    
+    // ---------------------------------------------------------------- NAME
+    
+    /**
+     * getter for first name
+     * @return - object mapped to first name
+     */
+    public Object getFirstName(){
+        return this.keys.get("firstname");
     }
     
     /**
-     * getter for prize
-     * @return - object mapped to prize
-     */
-    public Object getPrize(){
-        return this.keys.get("prize");
-    }
-    
-    /**
-     * setter for prize
-     * @param value  - Nobel prize
-     */
-    public void setPrize(String value){
-        this.keys.put("prize", value);
-    }
-    
-    /**
-     * getter for name
-     * @return - object mapped to name
-     */
-    public Object getName(){
-        return this.keys.get("name");
-    }
-    
-    /**
-     * setter for name
+     * setter for first name
      * @param value - name of prize winner
      */
-    public void setName(String value){
-        this.keys.put("name", value);
+    public void setFirstName(String value){
+        this.keys.put("firstname", value);
+    }
+    
+    /**
+     * getter for last name
+     * @return - object mapped to first name
+     */
+    public Object getLastName(){
+        return this.keys.get("lastname");
+    }
+    
+    /**
+     * setter for last name
+     * @param value - name of prize winner
+     */
+    public void setLastName(String value){
+        this.keys.put("lastname", value);
     }
     
     /**
@@ -79,80 +85,10 @@ public class Entry {
      * @return - object mapped to long name
      */
     public Object getLongname(){
-        return this.keys.get("longname");
+        return this.keys.get("firstname") + " " + this.keys.get("lastname");
     }
     
-    /**
-     * setter for long name
-     * @param value - long name of prize winner
-     */
-    public void setLongname(String value){
-        this.keys.put("longname", value);
-    }
-    
-    /**
-     * getter for gender
-     * @return - object mapped to gender
-     */
-    public Object getGender(){
-        return this.keys.get("gender");
-    }
-    
-    /**
-     * setter for gender
-     * @param value - gender of prize winner
-     */
-    public void setGender(String value){
-        this.keys.put("gender", value);
-    }
-    
-    /**
-     * getter for photo
-     * @return - object mapped to photo
-     */
-    public Object getPhoto(){
-        return this.keys.get("photo");
-    }
-    
-    /**
-     * setter for photo
-     * @param value - url for photo of prize winner
-     */
-    public void setPhoto(String value){
-        this.keys.put("photo", value);
-    }
-    
-    /**
-     * getter for country
-     * @return - object mapped to country
-     */
-    public Object getCountry(){
-        return this.keys.get("country");
-    }
-    
-    /**
-     * setter for country
-     * @param value - country of prize winner
-     */
-    public void setCountry(String value){
-        this.keys.put("country", value);
-    }
-    
-    /**
-     * getter for affiliation
-     * @return - object mapped to affiliation
-     */
-    public Object getAffiliation(){
-        return this.keys.get("affiliation");
-    }
-    
-    /**
-     * setter for affiliation
-     * @param value - affiliation of prize winner
-     */
-    public void setAffiliation(String value){
-        this.keys.put("affiliation", value);
-    }
+    // ---------------------------------------------------------------- BIRTH/DEATH YEARS
     
     /**
      * getter for birth year
@@ -186,35 +122,186 @@ public class Entry {
         this.keys.put("deathyear", value);
     }
     
+    // ---------------------------------------------------------------- BIRTH PLACE
+    
     /**
-     * getter for biography
-     * @return - object mapped to biography
+     * getter for born country
+     * @return - object mapped to born country
      */
-    public Object getBiography(){
-        return this.keys.get("biography");
+    public Object getBornCountry(){
+        return this.keys.get("borncountry");
     }
     
     /**
-     * setter for biography
-     * @param value - biography for prize winner
+     * setter for born country
+     * @param value - birth country of prize winner
      */
-    public void setBiography(String value){
-        this.keys.put("biography", value);
+    public void setBornCountry(String value){
+        this.keys.put("borncountry", value);
     }
     
     /**
-     * getter for lecture
-     * @return - object mapped to lecture
+     * getter for born country code
+     * @return - object mapped to born country code
      */
-    public Object getLecture(){
-        return this.keys.get("lecture");
+    public Object getBornCountryCode(){
+        return this.keys.get("borncountrycode");
     }
     
     /**
-     * setter for lecture
-     * @param value - lecture matched to prize winner
+     * setter for born country code
+     * @param value - birth country code of prize winner
      */
-    public void setLecture(String value){
-        this.keys.put("lecture", value);
+    public void setBornCountryCode(String value){
+        this.keys.put("borncountrycode", value);
+    }
+    
+    /**
+     * getter for born city
+     * @return - object mapped to born city
+     */
+    public Object getBornCity(){
+        return this.keys.get("borncity");
+    }
+    
+    /**
+     * setter for born city
+     * @param value - birth city of prize winner
+     */
+    public void setBornCity(String value){
+        this.keys.put("borncity", value);
+    }
+    
+    // ---------------------------------------------------------------- DEATH PLACE
+    
+    /**
+     * getter for death country
+     * @return - object mapped to death country
+     */
+    public Object getDeathCountry(){
+        return this.keys.get("deathcountry");
+    }
+    
+    /**
+     * setter for death country
+     * @param value - death country of prize winner
+     */
+    public void setDeathCountry(String value){
+        this.keys.put("deathcountry", value);
+    }
+    
+    /**
+     * getter for death country code
+     * @return - object mapped to death country code
+     */
+    public Object getDeathCountryCode(){
+        return this.keys.get("deathcountrycode");
+    }
+    
+    /**
+     * setter for death country code
+     * @param value - death country code of prize winner
+     */
+    public void setDeathCountryCode(String value){
+        this.keys.put("deathcountrycode", value);
+    }
+    
+    /**
+     * getter for death city
+     * @return - object mapped to death city
+     */
+    public Object getDeathCity(){
+        return this.keys.get("deathcity");
+    }
+    
+    /**
+     * setter for death city
+     * @param value - death city of prize winner
+     */
+    public void setDeathCity(String value){
+        this.keys.put("deathcity", value);
+    }
+    
+    // ---------------------------------------------------------------- GENDER
+    
+    /**
+     * getter for gender
+     * @return - object mapped to gender
+     */
+    public Object getGender(){
+        return this.keys.get("gender");
+    }
+    
+    /**
+     * setter for gender
+     * @param value - gender of prize winner
+     */
+    public void setGender(String value){
+        this.keys.put("gender", value);
+    }
+    
+    // ---------------------------------------------------------------- PRIZE
+    
+    /**
+     * adds a premade prize object to the prize list
+     * @param prize - prize object already created
+     */
+    public void addPrize(Prize prize){
+        prizes.add(prize);
+    }
+    
+    /**
+     * returns a prize object
+     * @return - prize at index index
+     */
+    public Prize getPrize(int index){
+        return prizes.get(index);
+    }
+    
+    /**
+     * returns a list of prizes
+     * @return - list of Prizes
+     */
+    public List<Prize> getPrizes(){
+        return prizes;
+    }
+    
+    /**
+     * returns length of prizes
+     * @return - length of prizes list
+     */
+    public int prizeLength(){
+        return prizes.size();
+    }
+    
+    // ---------------------------------------------------------------- SEARCH KEYS
+    /**
+     * returns a list of prize years for the current entry
+     * @return - list of prize years
+     */
+    public List<String> getPrizeYears(){
+        List<String> years = new ArrayList();
+        for(Prize prize : prizes){
+            String tmpString = prize.getPrizeYear().toString();
+            if (!years.contains(tmpString)){
+                years.add(tmpString);
+            }
+        }
+        return years;
+    }
+    
+    /**
+     * returns a list of prize categories for the current entry
+     * @return - list of prize categories
+     */
+    public List<String> getPrizeCats(){
+        List<String> cats = new ArrayList();
+        for(Prize prize : prizes){
+            String tmpString = prize.getPrizeCat().toString();
+            if (!cats.contains(tmpString)){
+                cats.add(tmpString);
+            }
+        }
+        return cats;
     }
 }
