@@ -5,6 +5,7 @@
  */
 package informationexploration;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 public class SearchEngine {
     // These are our  
     
-    //Current search
+    //Current search !!NEED TO EXPAND!!
     String CPrize;
     String CName;
     String CLongName;
@@ -42,104 +43,37 @@ public class SearchEngine {
    void addDatabase(Map<String,List<Entry>> DB){
         CDataBase = DB;     
    }
-    
-   void ExicuteSearchByWord(){
-       Map   results = new HashMap();
+   Map ExicuteSearch(){
+       Map<String,Entry> results = new HashMap(); //ask about this, also make sure no dups
        Map<String,List<Entry>> Searchbase = CDataBase;
-        //Check if search area is null 
-        //search each
-        //CPrize
-        if(CPrize == null){
+       if(CPrize == null){
         //don't search here 
         }else{
             for(String key: Searchbase.keySet()){
                List<Entry> n = Searchbase.get(key);
                for( Entry i: n){
-                   String check = i.getPrize().toString();
+                   String check = i.getPrizes().toString();  //Prizes or prize?
                    System.out.println(check);
+                   
+                   //here we go into 
+                   
                    if(CPrize.contentEquals(check)){
                    //this is where we add to set    
                    }
                }     
             }
         }
-        //CName
-        if(CName == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getName().toString();
-                   System.out.println(check); //test
-                   if(CName.contentEquals(check)){
-                   //this is where we add to set    
-                   }
-               }     
-            }
-        }
-        //CLongName
-        if(CLongName == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getLongname().toString();
-                   System.out.println(check); //test
-                   if(CLongName.contentEquals(check)){
-                   //this is where we add to set    
-                   }
-               }     
-            }
-        }
-        //CGender
-        if(CGender == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getGender().toString();
-                   System.out.println(check); //test
-                   if(CGender.contentEquals(check)){
-                   //this is where we add to set    
-                   }
-               }     
-            }
-        }
-        //CCountry
-        if(CCountry == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getCountry().toString();
-                   System.out.println(check); //test
-                   if(CCountry.contentEquals(check)){
-                   //this is where we add to set    
-                   }
-               }     
-            }
-        }
-        //CAffil
-        if(CGender == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getGender().toString();
-                   System.out.println(check); //test
-                   if(CGender.contentEquals(check)){
-                   //this is where we add to set    
-                   }
-               }     
-            }
-        }
-   
+       
+       
+       
+       
+       return results; //return 
    } 
+   
+   
+   
+   void ExicuteSearchByWord(){} 
+   void ExicuteSearchByDate(){}
    
     void setSearchCrit(SearchEntry ent){
         CPrize = ent.getPrize();
