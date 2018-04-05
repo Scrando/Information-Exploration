@@ -43,19 +43,102 @@ public class SearchEngine {
         CDataBase = DB;     
    }
     
-   void ExicuteSearch(){
+   void ExicuteSearchByWord(){
+       Map   results = new HashMap();
        Map<String,List<Entry>> Searchbase = CDataBase;
         //Check if search area is null 
         //search each
+        //CPrize
         if(CPrize == null){
         //don't search here 
         }else{
             for(String key: Searchbase.keySet()){
-                //if 
-                
-               
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getPrize().toString();
+                   System.out.println(check);
+                   if(CPrize.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
             }
         }
+        //CName
+        if(CName == null){
+        //don't search here 
+        }else{
+            for(String key: Searchbase.keySet()){
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getName().toString();
+                   System.out.println(check); //test
+                   if(CName.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
+            }
+        }
+        //CLongName
+        if(CLongName == null){
+        //don't search here 
+        }else{
+            for(String key: Searchbase.keySet()){
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getLongname().toString();
+                   System.out.println(check); //test
+                   if(CLongName.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
+            }
+        }
+        //CGender
+        if(CGender == null){
+        //don't search here 
+        }else{
+            for(String key: Searchbase.keySet()){
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getGender().toString();
+                   System.out.println(check); //test
+                   if(CGender.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
+            }
+        }
+        //CCountry
+        if(CCountry == null){
+        //don't search here 
+        }else{
+            for(String key: Searchbase.keySet()){
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getCountry().toString();
+                   System.out.println(check); //test
+                   if(CCountry.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
+            }
+        }
+        //CAffil
+        if(CGender == null){
+        //don't search here 
+        }else{
+            for(String key: Searchbase.keySet()){
+               List<Entry> n = Searchbase.get(key);
+               for( Entry i: n){
+                   String check = i.getGender().toString();
+                   System.out.println(check); //test
+                   if(CGender.contentEquals(check)){
+                   //this is where we add to set    
+                   }
+               }     
+            }
+        }
+   
    } 
    
     void setSearchCrit(SearchEntry ent){
