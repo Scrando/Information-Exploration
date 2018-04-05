@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import javafx.application.Preloader;
 import org.json.*;
-import informationexploration.NobelUI;
 import javafx.application.Application;
 
 /**
@@ -37,27 +36,35 @@ public class Extract {
     
     /**
      * Creates the Entry objects and calls addToMaps
+     * @param NobelUI - application object for call to preload loading screen updates
      */
     public void Extract(Application NobelUI){
         try{
+            
+            //progress output for preload screen
             int progress = 5;
             LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
+            
             // Opens JSON website and creates a JSON object 
             URL url = new URL("http://api.nobelprize.org/v1/laureate.json");
             URLConnection con = url.openConnection();
             InputStream is =con.getInputStream();
+            
+            //progress output for preload screen
             progress += 5;
             LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
+            
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             String line = new String();
             String tempLine;
             while ((tempLine = br.readLine()) != null) {
                 line += tempLine;
             }
+            br.close();
+            
+            //progress output for preload screen
             progress += 5;
             LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
-            br.close();
             
             JSONObject obj = new JSONObject(line);
             // Find number of Array entries

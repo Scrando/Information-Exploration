@@ -47,7 +47,6 @@ public class NobelPreload extends Preloader {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println(NobelUI.STEP() + "MyPreloader#start (showing preloader stage), thread: " + Thread.currentThread().getName());
 
         this.preloaderStage = primaryStage;
 
@@ -61,29 +60,6 @@ public class NobelPreload extends Preloader {
         // Handle application notification in this point (see MyApplication#init).
         if (info instanceof ProgressNotification) {
             progress.setText(((ProgressNotification) info).getProgress() + "%");
-            System.out.println(progress);
-        }
-    }
-
-    @Override
-    public void handleStateChangeNotification(StateChangeNotification info) {
-        // Handle state change notifications.
-        StateChangeNotification.Type type = info.getType();
-        switch (type) {
-            case BEFORE_LOAD:
-                // Called after MyPreloader#start is called.
-                System.out.println(NobelUI.STEP() + "BEFORE_LOAD");
-                break;
-            case BEFORE_INIT:
-                // Called before MyApplication#init is called.
-                System.out.println(NobelUI.STEP() + "BEFORE_INIT");
-                break;
-            case BEFORE_START:
-                // Called after MyApplication#init and before MyApplication#start is called.
-                System.out.println(NobelUI.STEP() + "BEFORE_START");
-
-                preloaderStage.hide();
-                break;
         }
     }
 }
