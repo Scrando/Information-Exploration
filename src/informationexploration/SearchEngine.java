@@ -9,7 +9,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/*
+Entry has 
+id
+first name
+last name
+long name
+birth year
+death year
+born country
+born city
+death country
+death city
+gender
+prize list
+prize years
+prize categories
+*/
 
 
 
@@ -44,21 +60,24 @@ public class SearchEngine {
         CDataBase = DB;     
    }
    Map ExicuteSearch(){
-       Map<String,Entry> results = new HashMap(); //ask about this, also make sure no dups
+       int num = 0;
+       Map<Integer,Entry> results = new HashMap(); //ask about this, also make sure no dups
        Map<String,List<Entry>> Searchbase = CDataBase;
-       if(CPrize == null){
+       if(CName == null){
         //don't search here 
         }else{
             for(String key: Searchbase.keySet()){
                List<Entry> n = Searchbase.get(key);
-               for( Entry i: n){
-                   String check = i.getPrizes().toString();  //Prizes or prize?
+               for( Entry currentData: n){
+                   String check = currentData.getLongname().toString();  //Prizes or prize?
                    System.out.println(check);
                    
                    //here we go into 
                    
-                   if(CPrize.contentEquals(check)){
-                   //this is where we add to set    
+                   if(CPrize.equals(check)){
+                    ++num;   
+                    //this is where we add to set  
+                    AddToResults(results,currentData,num);  
                    }
                }     
             }
@@ -69,11 +88,20 @@ public class SearchEngine {
        
        return results; //return 
    } 
+   /**
+    * This adds to our results
+    * @param list
+    * @param thing
+    * @param currentTime 
+    */
+   void AddToResults(Map<Integer,Entry> list, Entry thing,int currentTime){
+       int i = currentTime;
+       Integer c;
+       c = i;
+       list.put(c, thing);
+   }
    
-   
-   
-   void ExicuteSearchByWord(){} 
-   void ExicuteSearchByDate(){}
+
    
     void setSearchCrit(SearchEntry ent){
         CPrize = ent.getPrize();
@@ -89,6 +117,3 @@ public class SearchEngine {
    
     
 } 
-
-
-
