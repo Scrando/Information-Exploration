@@ -1,20 +1,17 @@
 package informationexploration;
 
-import com.sun.javafx.application.LauncherImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.application.Preloader;
 import org.json.*;
-import informationexploration.NobelUI;
-import javafx.application.Application;
 
 /**
  * Extracts all Entries from the Nobel Prize database, creates Entry Objects out
@@ -38,37 +35,29 @@ public class Extract {
     /**
      * Creates the Entry objects and calls addToMaps
      */
-    public void Extract(Application NobelUI){
+    public void Extract(){
         try{
-            int progress = 5;
-            LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
             // Opens JSON website and creates a JSON object 
             URL url = new URL("http://api.nobelprize.org/v1/laureate.json");
             URLConnection con = url.openConnection();
             InputStream is =con.getInputStream();
-            progress += 5;
-            LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
+
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             String line = new String();
-            String tempLine;
+            String tempLine = new String();
             while ((tempLine = br.readLine()) != null) {
                 line += tempLine;
             }
-            progress += 5;
-            LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
             br.close();
             
             JSONObject obj = new JSONObject(line);
+            
             // Find number of Array entries
             int len = obj.getJSONArray("laureates").length();
             
             // Create all DB entries and append them to the maps using addToMaps
             for (int i = 0; i<len; i++){
-                
-                
-                progress = ((i*100)/len);
-                LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
                 Entry tmpEntry = new Entry();
                 
                 // Add id to Entry
@@ -240,7 +229,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = firstNameDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 firstNameDB.put(tmpStr, tmpList);
             }
             firstNameDB.get(tmpStr).add(ent.getId().toString());
@@ -251,7 +240,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = surNameDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 surNameDB.put(tmpStr, tmpList);
             }
             surNameDB.get(tmpStr).add(ent.getId().toString());
@@ -262,7 +251,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = bornDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 bornDB.put(tmpStr, tmpList);
             }
             bornDB.get(tmpStr).add(ent.getId().toString());
@@ -273,7 +262,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = diedDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 diedDB.put(tmpStr, tmpList);
             }
             diedDB.get(tmpStr).add(ent.getId().toString());
@@ -284,7 +273,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = bornCountryDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 bornCountryDB.put(tmpStr, tmpList);
             }
             bornCountryDB.get(tmpStr).add(ent.getId().toString());
@@ -295,7 +284,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = bornCityDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 bornCityDB.put(tmpStr, tmpList);
             }
             bornCityDB.get(tmpStr).add(ent.getId().toString());
@@ -306,7 +295,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = diedCountryDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 diedCountryDB.put(tmpStr, tmpList);
             }
             diedCountryDB.get(tmpStr).add(ent.getId().toString());
@@ -317,7 +306,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = diedCityDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 diedCityDB.put(tmpStr, tmpList);
             }
             diedCityDB.get(tmpStr).add(ent.getId().toString());
@@ -328,7 +317,7 @@ public class Extract {
         if (!tmpStr.equals("")){
             List<String> tmpList = genderDB.get(tmpStr);
             if (tmpList == null){
-                tmpList = new ArrayList<>();
+                tmpList = new ArrayList<String>();
                 genderDB.put(tmpStr, tmpList);
             }
             genderDB.get(tmpStr).add(ent.getId().toString());
@@ -340,7 +329,7 @@ public class Extract {
             for (String year : years){
                 List<String> tmpList = prizeYearDB.get(year);
                 if (tmpList == null){
-                    tmpList = new ArrayList<>();
+                    tmpList = new ArrayList<String>();
                     prizeYearDB.put(year, tmpList);
                 }
                 prizeYearDB.get(year).add(ent.getId().toString());
@@ -352,7 +341,7 @@ public class Extract {
             for (String cat : cats){
                 List<String> tmpList = prizeCategoryDB.get(cat);
                 if (tmpList == null){
-                    tmpList = new ArrayList<>();
+                    tmpList = new ArrayList<String>();
                     prizeCategoryDB.put(cat, tmpList);
                 }
                 prizeCategoryDB.get(cat).add(ent.getId().toString());
