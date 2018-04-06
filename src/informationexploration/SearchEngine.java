@@ -1,8 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+    /**
+     * @param args the command line arguments
+     */
 package informationexploration;
 
 import java.util.HashMap;
@@ -43,20 +42,22 @@ public class SearchEngine {
    }
    Map ExicuteSearch(){
        int num = 0;
+       
        Map<Integer,List<String>> results = new HashMap(); //ask about this, also make sure no dups
        Extract Database = CurDataBase;
        
-       
+//Name
        if(CName == null){
-           System.out.println("No name to search for."); 
+            
        }else{    
-           System.out.println("Searching");
+           
            //Check if name in first
            if(Database.firstNameDB.containsKey(CName)){
                for(String n : Database.firstNameDB.keySet()){
                     if(n.equals(CName)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); //This is problem
+                        AddToResults(results,Database.firstNameDB.get(n),num);
+                        
                         
                     }
 
@@ -72,18 +73,105 @@ public class SearchEngine {
                    }
                }
            }
-            //for(String n: Database.firstNameDB.containsKey(num)){
-               
-           //}
+            
        }
-       if(CGender == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
-       if(CPrize == null){}
+//Gender
+       if(CGender == null){}else{
+       if(Database.genderDB.containsKey(CGender)){
+               for(String n : Database.genderDB.keySet()){
+                    if(n.equals(CGender)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }    
+       }
+//Prize
+       if(CPrize == null){}else{
+       if(Database.prizeCategoryDB.containsKey(CPrize)){
+               for(String n : Database.prizeCategoryDB.keySet()){
+                    if(n.equals(CPrize)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }
+       if(Database.prizeYearDB.containsKey(CPrize)){
+               for(String n : Database.prizeYearDB.keySet()){
+                    if(n.equals(CPrize)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }
+       
+       }
+//Birth Country
+       if(CCountryBirth == null){}else{
+       if(Database.bornCountryDB.containsKey(CCountryBirth)){
+               for(String n : Database.bornCountryDB.keySet()){
+                    if(n.equals(CCountryBirth)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }  
+       
+       }
+//Death Country
+       if(CCountryDeath == null){}else{
+       if(Database.diedCountryDB.containsKey(CCountryDeath)){
+               for(String n : Database.diedCountryDB.keySet()){
+                    if(n.equals(CCountryDeath)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }  
+       }
+//Birth Year
+       if(CBYear == null){}else{
+       if(Database.bornDB.containsKey(CBYear)){
+               for(String n : Database.bornDB.keySet()){
+                    if(n.equals(CBYear)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }  
+       }
+       if(CDYear == null){}else{
+       if(Database.diedDB.containsKey(CDYear)){
+               for(String n : Database.diedDB.keySet()){
+                    if(n.equals(CDYear)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        
+                    }
+
+               }
+               
+           }  
+       }
+   
        
        
        return results; //return 
@@ -118,8 +206,5 @@ public class SearchEngine {
    
     
 } 
-
-
-
-
+    
 
