@@ -9,27 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*
-Entry has 
-id
-first name
-last name
-long name
-birth year
-death year
-born country
-born city
-death country
-death city
-gender
-prize list
-prize years
-prize categories
-*/
-
-
-
-
 /**
  * The search engine, each version of search will call this method 
  * @author Connor
@@ -37,17 +16,20 @@ prize categories
 public class SearchEngine {
     // These are our  
     
-    //Current search !!NEED TO EXPAND!!
-    String CPrize;
-    String CName;
-    String CLongName;
-    String CGender;
-    String CCountry;
-    String CBYear;
-    String CDYear;
-    String CAffil;
-    Map<String,List<Entry>> CDataBase; //currently saved database
+    //storage:             Searchbar:        
+    String CPrize;         //"Prize",
+    String CName;          //"Name",!
+    String CLongName;      //!
+    String CGender;        //"Gender",
+    String CCountryBirth;  //"Birthplace",, 
+    String CCountryDeath;  //"Place of Death"
+    String CBYear;         //"Year of Birth",
+    String CDYear;         //"Year of Death",
+    String CAffil;   
     
+    
+    
+    Extract CurDataBase;//currently saved database
       /**
       * Initiates our search engine   
       */
@@ -56,34 +38,52 @@ public class SearchEngine {
         
     }
    //add the database we are looking for 
-   void addDatabase(Map<String,List<Entry>> DB){
-        CDataBase = DB;     
+   void addDatabase(Extract DB){
+        CurDataBase = DB;     
    }
    Map ExicuteSearch(){
        int num = 0;
-       Map<Integer,Entry> results = new HashMap(); //ask about this, also make sure no dups
-       Map<String,List<Entry>> Searchbase = CDataBase;
+       Map<Integer,List<String>> results = new HashMap(); //ask about this, also make sure no dups
+       Extract Database = CurDataBase;
+       
+       
        if(CName == null){
-        //don't search here 
-        }else{
-            for(String key: Searchbase.keySet()){
-               List<Entry> n = Searchbase.get(key);
-               for( Entry currentData: n){
-                   String check = currentData.getLongname().toString();  //Prizes or prize?
-                   System.out.println(check);
-                   
-                   //here we go into 
-                   
-                   if(CPrize.equals(check)){
-                    ++num;   
-                    //this is where we add to set  
-                    AddToResults(results,currentData,num);  
+           System.out.println("No name to search for."); 
+       }else{    
+           System.out.println("Searching");
+           //Check if name in first
+           if(Database.firstNameDB.containsKey(CName)){
+               for(String n : Database.firstNameDB.keySet()){
+                    if(n.equals(CName)){
+                        ++num;
+                        AddToResults(results,Database.firstNameDB.get(n),num); //This is problem
+                        
+                    }
+
+               }
+               
+           }
+           //Check if name in second
+           if(Database.surNameDB .containsKey(CName)){
+               for(String n : Database.surNameDB.keySet()){
+                   if(n.equals(CName)){
+                       ++num;
+                       AddToResults(results,Database.firstNameDB.get(n),num);
                    }
-               }     
-            }
-        }
-       
-       
+               }
+           }
+            //for(String n: Database.firstNameDB.containsKey(num)){
+               
+           //}
+       }
+       if(CGender == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
+       if(CPrize == null){}
        
        
        return results; //return 
@@ -94,11 +94,11 @@ public class SearchEngine {
     * @param thing
     * @param currentTime 
     */
-   void AddToResults(Map<Integer,Entry> list, Entry thing,int currentTime){
+   void AddToResults(Map<Integer,List<String>> list, List<String> thing,int currentTime){
        int i = currentTime;
        Integer c;
        c = i;
-       list.put(c, thing);
+       list.put(c,thing);
    }
    
 
@@ -108,7 +108,8 @@ public class SearchEngine {
         CName = ent.getName();
         CLongName = ent.getLNName();
         CGender = ent.getGender();
-        CCountry = ent.getCountry();
+        CCountryBirth = ent.getCountryB();
+        CCountryDeath = ent.getCountryD();
         CBYear = ent.getBYear();
         CDYear = ent.getDYear();
         CAffil = ent.getAff();
@@ -117,3 +118,8 @@ public class SearchEngine {
    
     
 } 
+
+
+
+
+
