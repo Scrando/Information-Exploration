@@ -65,11 +65,11 @@ public class SearchEngine {
                
            }
            //Check if name in second
-           if(Database.surNameDB .containsKey(CName)){
+           if(Database.surNameDB.containsKey(CName)){
                for(String n : Database.surNameDB.keySet()){
                    if(n.equals(CName)){
                        ++num;
-                       AddToResults(results,Database.firstNameDB.get(n),num);
+                       AddToResults(results,Database.surNameDB.get(n),num);
                    }
                }
            }
@@ -81,7 +81,7 @@ public class SearchEngine {
                for(String n : Database.genderDB.keySet()){
                     if(n.equals(CGender)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.genderDB.get(n),num); 
                         
                     }
 
@@ -95,7 +95,7 @@ public class SearchEngine {
                for(String n : Database.prizeCategoryDB.keySet()){
                     if(n.equals(CPrize)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.prizeCategoryDB.get(n),num); 
                         
                     }
 
@@ -106,7 +106,7 @@ public class SearchEngine {
                for(String n : Database.prizeYearDB.keySet()){
                     if(n.equals(CPrize)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.prizeYearDB.get(n),num); 
                         
                     }
 
@@ -121,7 +121,7 @@ public class SearchEngine {
                for(String n : Database.bornCountryDB.keySet()){
                     if(n.equals(CCountryBirth)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.bornCountryDB.get(n),num); 
                         
                     }
 
@@ -136,7 +136,7 @@ public class SearchEngine {
                for(String n : Database.diedCountryDB.keySet()){
                     if(n.equals(CCountryDeath)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.diedCountryDB.get(n),num); 
                         
                     }
 
@@ -150,7 +150,7 @@ public class SearchEngine {
                for(String n : Database.bornDB.keySet()){
                     if(n.equals(CBYear)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.bornDB.get(n),num); 
                         
                     }
 
@@ -163,7 +163,7 @@ public class SearchEngine {
                for(String n : Database.diedDB.keySet()){
                     if(n.equals(CDYear)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num); 
+                        AddToResults(results,Database.diedDB.get(n),num); 
                         
                     }
 
@@ -171,6 +171,7 @@ public class SearchEngine {
                
            }  
        }
+       
    
        
        
