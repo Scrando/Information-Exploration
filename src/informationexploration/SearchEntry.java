@@ -25,12 +25,6 @@ class SearchEntry {
     String Affil;
     //ask about how we are doing date ranges
     
-      /**
-      * Initiates our search engine 
-      * @param DB   
-      */
-    public static void SearchEntry() {
-    }
     /**
      * Adds an ID 
      * @param IDent 

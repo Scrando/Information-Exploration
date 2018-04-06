@@ -31,8 +31,10 @@ public class NobelUI extends Application {
     
      @Override
     public void init() throws Exception {
-        Extract Ex = new Extract();
-        Ex.Extract(this);
+        Extract DB = new Extract();
+        DB.Extract(this);
+        SearchEngine searchEngine = new SearchEngine();
+        searchEngine.addDatabase(DB);
         LauncherImpl.notifyPreloader(this, new Preloader.ProgressNotification(100));
     }
     
