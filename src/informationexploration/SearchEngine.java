@@ -1,7 +1,6 @@
-
-    /**
-     * @param args the command line arguments
-     */
+/**
+* @param args the command line arguments
+*/
 package informationexploration;
 
 import java.util.HashMap;
@@ -13,42 +12,54 @@ import java.util.Map;
  * @author Connor
  */
 public class SearchEngine {
-    // These are our  
-    
+      
+    //These are our earch terms
+    //The are null if we are not searching in them
     //storage:             Searchbar:        
     String CPrize;         //"Prize",
-    String CName;          //"Name",!
-    String CLongName;      //!
+    String CName;          //"Name",
     String CGender;        //"Gender",
     String CCountryBirth;  //"Birthplace",, 
     String CCountryDeath;  //"Place of Death"
     String CBYear;         //"Year of Birth",
     String CDYear;         //"Year of Death",
-    String CAffil;   
+   
     
     
     
     Extract CurDataBase;//currently saved database
-      /**
-      * Initiates our search engine   
-      */
-    public static void SearchEngine() {
-        System.out.println("Search Engine online");
-        
-    }
+    /**
+    * Initiates our search engine   
+    */
+    public static void SearchEngine() {}
    //add the database we are looking for 
+   
+    
+   /**
+    * Loads our current database
+    * IMPORTANT: Do this BEFORE First!
+    * @param DB Database object
+    */ 
    void addDatabase(Extract DB){
         CurDataBase = DB;     
    }
-   Map ExicuteSearch(){
+   
+   
+   
+   /**
+    * Searches the given database for given terms
+    * Important: Exicute after everything is set!
+    * @return Map<Integer,List<String>> of resulting Integers and IDs 
+    */
+   Map<Integer,List<String>> ExicuteSearch(){
        int num = 0;
        
        Map<Integer,List<String>> results = new HashMap(); //ask about this, also make sure no dups
        Extract Database = CurDataBase;
        
-//Name
+        //Name
        if(CName == null){
-            
+       //does nothing     
        }else{    
            
            //Check if name in first
@@ -56,9 +67,7 @@ public class SearchEngine {
                for(String n : Database.firstNameDB.keySet()){
                     if(n.equals(CName)){
                         ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num);
-                        
-                        
+                        AddToResults(results,Database.firstNameDB.get(n),num);  
                     }
 
                }
@@ -171,17 +180,14 @@ public class SearchEngine {
                
            }  
        }
-       
-   
-       
-       
+
        return results; //return 
    } 
    /**
     * This adds to our results
-    * @param list
-    * @param thing
-    * @param currentTime 
+    * @param list The Search result list
+    * @param thing The value 
+    * @param currentTime The int for our ID
     */
    void AddToResults(Map<Integer,List<String>> list, List<String> thing,int currentTime){
        int i = currentTime;
@@ -191,17 +197,19 @@ public class SearchEngine {
    }
    
 
-   
+   /**
+    * Sets in the search terms for the engine
+    * IMPORTANT: Call this before you call the Excicute Search 
+    * @param ent SearchEntry object
+    */
     void setSearchCrit(SearchEntry ent){
         CPrize = ent.getPrize();
-        CName = ent.getName();
-        CLongName = ent.getLNName();
+        CName = ent.getName();       
         CGender = ent.getGender();
         CCountryBirth = ent.getCountryB();
         CCountryDeath = ent.getCountryD();
         CBYear = ent.getBYear();
         CDYear = ent.getDYear();
-        CAffil = ent.getAff();
        
    }
    
