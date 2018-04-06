@@ -18,10 +18,12 @@ class SearchEntry {
     String Name;
     String LongName;
     String Gender;
-    String Country;
+    String CountryB;
+    String CountryD;
     String BYear;
     String DYear;
     String Affil;
+    //ask about how we are doing date ranges
     
       /**
       * Initiates our search engine 
@@ -104,15 +106,30 @@ class SearchEntry {
      * set Country
      * @param C 
      */
-    public void addCountry(String C){
+    public void addCountryB(String C){
         Name = C;
     }
     /**
      * get country
      * @return string country
      */
-    public String getCountry(){
-        return Country;
+    public String getCountryB(){
+        return CountryB;
+    }
+    
+    /**
+     * set Country
+     * @param C 
+     */
+    public void addCountryD(String C){
+        Name = C;
+    }
+    /**
+     * get country
+     * @return string country
+     */
+    public String getCountryD(){
+        return CountryD;
     }
     /**
      * set birth year
