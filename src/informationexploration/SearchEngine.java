@@ -51,12 +51,12 @@ public class SearchEngine {
             //Check if name in first
             if(Database.firstNameDB.containsKey(cName)){
                 SearchByName nameFSearch = new SearchByName (Database.firstNameDB, cName);
-                nameFSearch.Execute();
+                results = nameFSearch.Execute();
             }else{ //ask about better way for this
             //Check if name in second
             if(Database.surNameDB.containsKey(cName)){
                SearchByName nameLSearch = new SearchByName (Database.surNameDB, cName);
-               nameLSearch.Execute();
+               results = nameLSearch.Execute();
             } 
             } 
         }
