@@ -11,7 +11,7 @@ import java.util.Map;
  * The search engine, each version of search will call this method 
  * @author Connor
  */
-public class SearchEngine {
+public class SearchEngineRevised {
       
     //These are our earch terms
     //The are null if we are not searching in them
@@ -28,7 +28,7 @@ public class SearchEngine {
 
     /**
     * Loads our current database
-    * IMPORTANT: Do this BEFORE First!
+    * IMPORTANT: Do this BEFORE searching First!
     * @param DB Database object
     */ 
     void addDatabase(Extract DB){
@@ -50,95 +50,60 @@ public class SearchEngine {
         if(CName == null){} else{     
             //Check if name in first
             if(Database.firstNameDB.containsKey(CName)){
-                for(String n : Database.firstNameDB.keySet()){
-                    if(n.equals(CName)){
-                        ++num;
-                        AddToResults(results,Database.firstNameDB.get(n),num);  
-                    }
-                }    
-            }
+                SearchByName nameFSearch = new SearchByName (Database.firstNameDB, CName);
+                nameFSearch.Execute();
+            }else{ //ask about better way for this
             //Check if name in second
             if(Database.surNameDB.containsKey(CName)){
-                for(String n : Database.surNameDB.keySet()){
-                    if(n.equals(CName)){
-                       ++num;
-                       AddToResults(results,Database.surNameDB.get(n),num);
-                    }
-                }   
-            }      
+               SearchByName nameLSearch = new SearchByName (Database.surNameDB, CName);
+               nameLSearch.Execute();
+            } 
+            } 
         }
         //Gender
         if(CGender == null){} else{
         if(Database.genderDB.containsKey(CGender)){
-            for(String n : Database.genderDB.keySet()){
-                if(n.equals(CGender)){
-                    ++num;
-                    AddToResults(results,Database.genderDB.get(n),num);   
-                }
-            }            
+          SearchByGender genderSearch  = new SearchByGender(Database.genderDB,CGender);
+          results = genderSearch.Execute();
         }    
         }
         //Prize
         if(CPrize == null){} else{
         if(Database.prizeCategoryDB.containsKey(CPrize)){
-            for(String n : Database.prizeCategoryDB.keySet()){
-                if(n.equals(CPrize)){
-                    ++num;
-                    AddToResults(results,Database.prizeCategoryDB.get(n),num); 
-                        
-                }
-            }               
-        }
+            SearchByPrize catPrizeSearch = new SearchByPrize(Database.prizeCategoryDB, CPrize);        
+            results = catPrizeSearch.Execute();
+        }else{
         if(Database.prizeYearDB.containsKey(CPrize)){
-            for(String n : Database.prizeYearDB.keySet()){
-                if(n.equals(CPrize)){
-                    ++num;
-                    AddToResults(results,Database.prizeYearDB.get(n),num);     
-                }
-            }              
-        }       
+            SearchByPrize yearPrizeSearch = new SearchByPrize(Database.prizeYearDB, CPrize);        
+            results = yearPrizeSearch.Execute();              
+        }
+        }
         }
         //Birth Country
         if(CCountryBirth == null){} else{
         if(Database.bornCountryDB.containsKey(CCountryBirth)){
-            for(String n : Database.bornCountryDB.keySet()){
-                if(n.equals(CCountryBirth)){
-                    ++num;
-                    AddToResults(results,Database.bornCountryDB.get(n),num);   
-                }
-            } 
+            SearchByBCountry countryBornSearch = new SearchByBCountry(Database.bornCountryDB,CCountryBirth);
+            results = countryBornSearch.Execute();
         }  
         }
         //Death Country
         if(CCountryDeath == null){} else{
         if(Database.diedCountryDB.containsKey(CCountryDeath)){
-            for(String n : Database.diedCountryDB.keySet()){
-                if(n.equals(CCountryDeath)){
-                    ++num;
-                    AddToResults(results,Database.diedCountryDB.get(n),num);   
-                }
-            }            
+           SearchByDCountry countryDiedSearch = new SearchByDCountry(Database.diedCountryDB,CCountryDeath);
+            results = countryDiedSearch.Execute();            
         }  
         }
         //Birth Year
         if(CBYear == null){} else{
         if(Database.bornDB.containsKey(CBYear)){
-            for(String n : Database.bornDB.keySet()){
-                if(n.equals(CBYear)){
-                    ++num;
-                    AddToResults(results,Database.bornDB.get(n),num);  
-                }
-            } 
+            SearchByBYear searchBorn = new SearchByBYear(Database.bornDB,CBYear);
+            results = searchBorn.Execute();
         }  
         }
         if(CDYear == null){} else{
         if(Database.diedDB.containsKey(CDYear)){
-            for(String n : Database.diedDB.keySet()){
-                if(n.equals(CDYear)){
-                    ++num;
-                    AddToResults(results,Database.diedDB.get(n),num);   
-                }
-            }    
+               SearchByDYear searchDied = new SearchByDYear(Database.diedDB,CDYear);
+               results = searchDied.Execute();
         }  
         }
        return results; //return 
@@ -171,6 +136,6 @@ public class SearchEngine {
         CBYear = ent.getBYear();
         CDYear = ent.getDYear(); 
     } 
-} 
     
-
+    
+} 
