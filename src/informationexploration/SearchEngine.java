@@ -11,7 +11,7 @@ import java.util.Map;
  * The search engine, each version of search will call this method 
  * @author Connor
  */
-public class SearchEngineRevised {
+public class SearchEngine {
       
     //These are our earch terms
     //The are null if we are not searching in them
