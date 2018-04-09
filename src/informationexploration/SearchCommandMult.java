@@ -12,17 +12,17 @@ import java.util.Set;
 
 /**
  *
- * @author Connor
+ * @author Owner
  */
-public abstract class SearchCommand {
+public abstract class SearchCommandMult {
     private final Map<String,List<String>> Data;
     Set<String> results;
     
-    public SearchCommand (Map<String,List<String>> data) {
+    public SearchCommandMult (Map<String,List<String>> data) {
         Data = data;
     }
     
-    abstract boolean include (String CValue);
+    abstract boolean include (String CValue1);
     
     public Set<String> Execute() {
         results = new HashSet<>();
