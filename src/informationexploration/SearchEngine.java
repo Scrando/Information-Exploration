@@ -51,12 +51,12 @@ public class SearchEngine {
         if(cName == null){} else{     
             //Check if name in first
             if(Database.firstNameDB.containsKey(cName)){
-                SearchByName nameFSearch = new SearchByName (Database.firstNameDB, cName);
+                SearchBy nameFSearch = new SearchBy (Database.firstNameDB, cName);
                 results = nameFSearch.Execute();
             } else{ //ask about better way for this
             //Check if name in second
             if(Database.surNameDB.containsKey(cName)){
-               SearchByName nameLSearch = new SearchByName (Database.surNameDB, cName);
+               SearchBy nameLSearch = new SearchBy (Database.surNameDB, cName);
                results = nameLSearch.Execute();
             } 
             } 
@@ -64,66 +64,53 @@ public class SearchEngine {
         //Gender
         if(cGender == null){} else{
             if(Database.genderDB.containsKey(cGender)){
-                SearchByGender genderSearch  = new SearchByGender(Database.genderDB,cGender);
+                SearchBy genderSearch  = new SearchBy(Database.genderDB,cGender);
                 results = genderSearch.Execute();
             }    
         }
         //Prize
         if(cPrize == null){} else{
             if(Database.prizeCategoryDB.containsKey(cPrize)){
-                SearchByPrize catPrizeSearch = new SearchByPrize(Database.prizeCategoryDB, cPrize);        
+                SearchBy catPrizeSearch = new SearchBy(Database.prizeCategoryDB, cPrize);        
                 results = catPrizeSearch.Execute();
             }
         }
         if (cPrizeYear == null){} else{
             if(Database.prizeYearDB.containsKey(cPrizeYear)){
-                SearchByPrize yearPrizeSearch = new SearchByPrize(Database.prizeYearDB, cPrize);        
+                SearchBy yearPrizeSearch = new SearchBy(Database.prizeYearDB, cPrize);        
                 results = yearPrizeSearch.Execute();              
             }
         }
         //Birth Country
         if(cCountryBirth == null){} else{
             if(Database.bornCountryDB.containsKey(cCountryBirth)){
-                SearchByBCountry countryBornSearch = new SearchByBCountry(Database.bornCountryDB,cCountryBirth);
+                SearchBy countryBornSearch = new SearchBy(Database.bornCountryDB,cCountryBirth);
                 results = countryBornSearch.Execute();
             }  
         }
         //Death Country
         if(cCountryDeath == null){} else{
             if(Database.diedCountryDB.containsKey(cCountryDeath)){
-                SearchByDCountry countryDiedSearch = new SearchByDCountry(Database.diedCountryDB,cCountryDeath);
+                SearchBy countryDiedSearch = new SearchBy(Database.diedCountryDB,cCountryDeath);
                 results = countryDiedSearch.Execute();            
             }  
         }
         //Birth Year
         if(cBYear == null){} else{
             if(Database.bornDB.containsKey(cBYear)){
-                SearchByBYear searchBorn = new SearchByBYear(Database.bornDB,cBYear);
+                SearchBy searchBorn = new SearchBy(Database.bornDB,cBYear);
                 results = searchBorn.Execute();
             }  
         }
         if(cDYear == null){} else{
             if(Database.diedDB.containsKey(cDYear)){
-                SearchByDYear searchDied = new SearchByDYear(Database.diedDB,cDYear);
+                SearchBy searchDied = new SearchBy(Database.diedDB,cDYear);
                 results = searchDied.Execute();
             }  
         }
        return results; //return 
     } 
-    /**
-    * This adds to our results
-    * @param list The Search result list
-    * @param thing The value 
-    * @param currentTime The int for our ID
-    */
-    void AddToResults(Map<Integer,List<String>> list, List<String> thing,int currentTime){
-       int i = currentTime;
-       Integer c;
-       c = i;
-       list.put(c,thing);
-    }
    
-
     /**
     * Sets in the search terms for the engine
     * IMPORTANT: Call this before you call the Execute Search 
