@@ -55,6 +55,7 @@ public class SearchEngine {
                 SearchBy nameFSearch = new SearchBy (Database.firstNameDB, cName);
                 results.addAll(nameFSearch.Execute());
             } else{
+
             //Check if name in second
             if(Database.surNameDB.containsKey(cName)){
                SearchBy nameLSearch = new SearchBy (Database.surNameDB, cName);
@@ -74,6 +75,7 @@ public class SearchEngine {
             if(Database.prizeCategoryDB.containsKey(cPrize)){
                 SearchBy prizeSearch = new SearchBy(Database.prizeCategoryDB, cPrize);        
                 results = prizeSearch.Execute();
+
             }
         }
         if (cPrizeYear != null){
@@ -111,20 +113,7 @@ public class SearchEngine {
         }
        return results; //return 
     } 
-    /**
-    * This adds to our results
-    * @param list The Search result list
-    * @param thing The value 
-    * @param currentTime The int for our ID
-    */
-    void AddToResults(Map<Integer,List<String>> list, List<String> thing,int currentTime){
-       int i = currentTime;
-       Integer c;
-       c = i;
-       list.put(c,thing);
-    }
    
-
     /**
     * Sets in the search terms for the engine
     * IMPORTANT: Call this before you call the Execute Search 
