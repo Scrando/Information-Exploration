@@ -29,6 +29,7 @@ public class SearchByPrize extends SearchCommand {
      * @param value
      * @return 
      */
+    @Override
     public boolean include (String value) {
         return value.equals (prize);
     }

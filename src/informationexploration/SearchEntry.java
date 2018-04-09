@@ -15,6 +15,7 @@ class SearchEntry {
     //What we seatch for
     int ID; 
     String Prize;
+    String PrizeYear;
     String Name;
     String LongName;
     String Gender;
@@ -22,7 +23,6 @@ class SearchEntry {
     String CountryD;
     String BYear;
     String DYear;
-    String Affil;
     //ask about how we are doing date ranges
     
     /**
@@ -54,6 +54,21 @@ class SearchEntry {
     public String getPrize(){
         return Prize;
     }
+    
+    /**
+     * sets our prize year
+     * @param P 
+     */
+    public void addPrizeYear(String P){
+        PrizeYear = P;
+    }
+    /**
+     * returns our prize year
+     * @return Prize string
+     */
+    public String getPrizeYear(){
+        return PrizeYear;
+    }
     /**
      * sets our Name
      * @param N 
@@ -68,26 +83,13 @@ class SearchEntry {
     public String getName(){
         return Name;
     }
-    /**
-     * sets our long name
-     * @param L 
-     */
-    public void addLName(String L){
-        LongName = L;
-    }
-    /**
-     * gets the long name
-     * @return long name string
-     */
-    public String getLNName(){
-        return LongName;
-    }
+
     /**
      * sets the gender sting
      * @param G 
      */
     public void addGender(String G){
-        Name = G;
+        Gender = G;
     }
     /**
      * gets the Gender
@@ -101,7 +103,7 @@ class SearchEntry {
      * @param C 
      */
     public void addCountryB(String C){
-        Name = C;
+        CountryB = C;
     }
     /**
      * get country
@@ -116,7 +118,7 @@ class SearchEntry {
      * @param C 
      */
     public void addCountryD(String C){
-        Name = C;
+        CountryD = C;
     }
     /**
      * get country
@@ -153,19 +155,5 @@ class SearchEntry {
     public String getDYear(){
         return DYear;
     }
-    /**
-     * Set Affilation
-     * @param A 
-     */
-    public void addAffil(String A){
-        Affil = A;
-    }
-    /**
-     * Set Affiliation
-     * @return 
-     */
-    public String getAff(){
-        return Affil;
-    }
-}     
+}
 

@@ -27,7 +27,7 @@ public abstract class SearchCommand {
         int num = 0;
         for(String n : Data.keySet()){
             if(include(n)) {
-                 AddToResults(results,Data.get(n), num++);   
+                AddToResults(results,Data.get(n), num++);   
             }
         }
         
