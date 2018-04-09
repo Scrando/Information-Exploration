@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Search object for Prize
+ * Search data for object
  * @author Connor
  */
 public class SearchBy extends SearchCommand { 
