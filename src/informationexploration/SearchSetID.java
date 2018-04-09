@@ -6,29 +6,28 @@
 package informationexploration;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- *
+ * Returns ID objects
  * @author Connor
  */
-public abstract class SearchCommand {
-    private final Map<String,List<String>> Data;
-    Set<String> results;
+public abstract class SearchSetID {
+    private final Map<String,Entry> Data;
+    Set<Entry> results;
     
-    public SearchCommand (Map<String,List<String>> data) {
+    public SearchSetID (Map<String,Entry> data) {
         Data = data;
     }
     
-    abstract boolean include (String CValue);
+    abstract boolean include (String ID);
     
-    public Set<String> Execute() {
+    public Set<Entry> Execute() {
         results = new HashSet<>();
         for(String n : Data.keySet()){
             if(include(n)) {
-                results.addAll(Data.get(n));
+                results.add(Data.get(n));
             }
         }
         return results;
