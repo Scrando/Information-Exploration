@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Connor
  */
 public class SearchBy extends SearchCommand { 
-    private String look;
+    private final String look;
     
     /**
      * set up search
@@ -29,6 +29,7 @@ public class SearchBy extends SearchCommand {
      * @param value
      * @return 
      */
+    @Override
     public boolean include (String value) {
         return value.equals (look);
     }

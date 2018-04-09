@@ -243,7 +243,7 @@ public class Extract {
         }
         
         // firstNameDB
-        String tmpStr = ent.getFirstName().toString();
+        String tmpStr = ent.getFirstName().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = firstNameDB.get(tmpStr);
             if (tmpList == null){
@@ -254,7 +254,7 @@ public class Extract {
         }
         
         // surNameDB
-        tmpStr = ent.getLastName().toString();
+        tmpStr = ent.getLastName().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = surNameDB.get(tmpStr);
             if (tmpList == null){
@@ -265,7 +265,7 @@ public class Extract {
         }
         
         // bornDB
-        tmpStr = ent.getBirthyear().toString();
+        tmpStr = ent.getBirthyear().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = bornDB.get(tmpStr);
             if (tmpList == null){
@@ -276,7 +276,7 @@ public class Extract {
         }
         
         // diedDB
-        tmpStr = ent.getDeathyear().toString();
+        tmpStr = ent.getDeathyear().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = diedDB.get(tmpStr);
             if (tmpList == null){
@@ -287,7 +287,7 @@ public class Extract {
         }
         
         // bornCountryDB
-        tmpStr = ent.getBornCountry().toString();
+        tmpStr = ent.getBornCountry().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = bornCountryDB.get(tmpStr);
             if (tmpList == null){
@@ -298,7 +298,7 @@ public class Extract {
         }
         
         // bornCityDB
-        tmpStr = ent.getBornCity().toString();
+        tmpStr = ent.getBornCity().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = bornCityDB.get(tmpStr);
             if (tmpList == null){
@@ -309,7 +309,7 @@ public class Extract {
         }
         
         // diedCountryDB
-        tmpStr = ent.getDeathCountry().toString();
+        tmpStr = ent.getDeathCountry().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = diedCountryDB.get(tmpStr);
             if (tmpList == null){
@@ -320,7 +320,7 @@ public class Extract {
         }
         
         // diedCityDB
-        tmpStr = ent.getDeathCity().toString();
+        tmpStr = ent.getDeathCity().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = diedCityDB.get(tmpStr);
             if (tmpList == null){
@@ -331,7 +331,7 @@ public class Extract {
         }
         
         // genderDB
-        tmpStr = ent.getGender().toString();
+        tmpStr = ent.getGender().toString().toLowerCase();
         if (!tmpStr.equals("")){
             List<String> tmpList = genderDB.get(tmpStr);
             if (tmpList == null){
