@@ -15,20 +15,15 @@ class SearchEntry {
     //What we seatch for
     int ID; 
     String Prize;
+    String PrizeYear;
     String Name;
-    String LongName;
     String Gender;
-    String Country;
+    String CountryB;
+    String CountryD;
     String BYear;
     String DYear;
-    String Affil;
+    //ask about how we are doing date ranges
     
-      /**
-      * Initiates our search engine 
-      * @param DB   
-      */
-    public static void SearchEntry() {
-    }
     /**
      * Adds an ID 
      * @param IDent 
@@ -58,6 +53,21 @@ class SearchEntry {
     public String getPrize(){
         return Prize;
     }
+    
+    /**
+     * sets our prize year
+     * @param P 
+     */
+    public void addPrizeYear(String P){
+        PrizeYear = P;
+    }
+    /**
+     * returns our prize year
+     * @return Prize string
+     */
+    public String getPrizeYear(){
+        return PrizeYear;
+    }
     /**
      * sets our Name
      * @param N 
@@ -72,26 +82,13 @@ class SearchEntry {
     public String getName(){
         return Name;
     }
-    /**
-     * sets our long name
-     * @param L 
-     */
-    public void addLName(String L){
-        LongName = L;
-    }
-    /**
-     * gets the long name
-     * @return long name string
-     */
-    public String getLNName(){
-        return LongName;
-    }
+
     /**
      * sets the gender sting
      * @param G 
      */
     public void addGender(String G){
-        Name = G;
+        Gender = G;
     }
     /**
      * gets the Gender
@@ -104,15 +101,30 @@ class SearchEntry {
      * set Country
      * @param C 
      */
-    public void addCountry(String C){
-        Name = C;
+    public void addCountryB(String C){
+        CountryB = C;
     }
     /**
      * get country
      * @return string country
      */
-    public String getCountry(){
-        return Country;
+    public String getCountryB(){
+        return CountryB;
+    }
+    
+    /**
+     * set Country
+     * @param C 
+     */
+    public void addCountryD(String C){
+        CountryD = C;
+    }
+    /**
+     * get country
+     * @return string country
+     */
+    public String getCountryD(){
+        return CountryD;
     }
     /**
      * set birth year
@@ -142,19 +154,4 @@ class SearchEntry {
     public String getDYear(){
         return DYear;
     }
-    /**
-     * Set Affilation
-     * @param A 
-     */
-    public void addAffil(String A){
-        Affil = A;
-    }
-    /**
-     * Set Affiliation
-     * @return 
-     */
-    public String getAff(){
-        return Affil;
-    }
-}     
-
+}
