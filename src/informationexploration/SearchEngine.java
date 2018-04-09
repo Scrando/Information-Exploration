@@ -4,8 +4,10 @@
 package informationexploration;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The search engine, each version of search will call this method 
@@ -41,19 +43,19 @@ public class SearchEngine {
     * Important: Execute after everything is set!
     * @return Map<Integer,List<String>> of resulting Integers and IDs 
     */
-    Map<Integer,List<String>> ExecuteSearch(){
-        int num = 0;
+    Set<String> ExecuteSearch(){
        
-        Map<Integer,List<String>> results = new HashMap(); //ask about this, also make sure no dups
+        Set<String> results = new HashSet<>();
         Extract Database = DB;
        
         //Name
-        if(cName == null){} else{     
+        if(cName != null){     
             //Check if name in first
             if(Database.firstNameDB.containsKey(cName)){
                 SearchBy nameFSearch = new SearchBy (Database.firstNameDB, cName);
-                results = nameFSearch.Execute();
-            } else{ //ask about better way for this
+                results.addAll(nameFSearch.Execute());
+            } else{
+
             //Check if name in second
             if(Database.surNameDB.containsKey(cName)){
                SearchBy nameLSearch = new SearchBy (Database.surNameDB, cName);
@@ -62,47 +64,48 @@ public class SearchEngine {
             } 
         }
         //Gender
-        if(cGender == null){} else{
+        if(cGender != null){
             if(Database.genderDB.containsKey(cGender)){
                 SearchBy genderSearch  = new SearchBy(Database.genderDB,cGender);
                 results = genderSearch.Execute();
             }    
         }
         //Prize
-        if(cPrize == null){} else{
+        if(cPrize != null){
             if(Database.prizeCategoryDB.containsKey(cPrize)){
-                SearchBy catPrizeSearch = new SearchBy(Database.prizeCategoryDB, cPrize);        
-                results = catPrizeSearch.Execute();
+                SearchBy prizeSearch = new SearchBy(Database.prizeCategoryDB, cPrize);        
+                results = prizeSearch.Execute();
+
             }
         }
-        if (cPrizeYear == null){} else{
+        if (cPrizeYear != null){
             if(Database.prizeYearDB.containsKey(cPrizeYear)){
                 SearchBy yearPrizeSearch = new SearchBy(Database.prizeYearDB, cPrize);        
                 results = yearPrizeSearch.Execute();              
             }
         }
         //Birth Country
-        if(cCountryBirth == null){} else{
+        if(cCountryBirth != null){
             if(Database.bornCountryDB.containsKey(cCountryBirth)){
                 SearchBy countryBornSearch = new SearchBy(Database.bornCountryDB,cCountryBirth);
                 results = countryBornSearch.Execute();
             }  
         }
         //Death Country
-        if(cCountryDeath == null){} else{
+        if(cCountryDeath != null){
             if(Database.diedCountryDB.containsKey(cCountryDeath)){
                 SearchBy countryDiedSearch = new SearchBy(Database.diedCountryDB,cCountryDeath);
                 results = countryDiedSearch.Execute();            
             }  
         }
         //Birth Year
-        if(cBYear == null){} else{
+        if(cBYear != null){
             if(Database.bornDB.containsKey(cBYear)){
                 SearchBy searchBorn = new SearchBy(Database.bornDB,cBYear);
                 results = searchBorn.Execute();
             }  
         }
-        if(cDYear == null){} else{
+        if(cDYear != null){
             if(Database.diedDB.containsKey(cDYear)){
                 SearchBy searchDied = new SearchBy(Database.diedDB,cDYear);
                 results = searchDied.Execute();
@@ -126,4 +129,4 @@ public class SearchEngine {
         cBYear = ent.getBYear();
         cDYear = ent.getDYear(); 
     }  
-} 
+}

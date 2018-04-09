@@ -15,12 +15,13 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
- * Simple Preloader Using the ProgressBar Control
+ * Simple Preloader Using progress notifications from database extraction
  *
  * @author Nathaniel Groenewold;
  */
 public class NobelPreload extends Preloader {
     
+    //Preloader specs
     private static final double WIDTH = 400;
     private static final double HEIGHT = 400;
 
@@ -32,7 +33,7 @@ public class NobelPreload extends Preloader {
     @Override
     public void init() throws Exception {
 
-        // If preloader has complex UI it's initialization can be done in MyPreloader#init
+        // Preload initialization
         Platform.runLater(() -> {
             Label title = new Label("Extracting Nobel Database!\nLoading, please wait...");
             title.setTextAlignment(TextAlignment.CENTER);
@@ -45,19 +46,19 @@ public class NobelPreload extends Preloader {
         });
     }
     
+    //preload runtime
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        this.preloaderStage = primaryStage;
-
         // Set preloader scene and show stage.
+        this.preloaderStage = primaryStage;
         preloaderStage.setScene(scene);
         preloaderStage.show();
     }
     
-     @Override
+    //handle notifications to change progress
+    @Override
     public void handleApplicationNotification(PreloaderNotification info) {
-        // Handle application notification in this point (see MyApplication#init).
         if (info instanceof ProgressNotification) {
             progress.setText(((ProgressNotification) info).getProgress() + "%");
         }

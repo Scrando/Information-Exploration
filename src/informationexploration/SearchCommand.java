@@ -5,16 +5,18 @@
  */
 package informationexploration;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
  * @author Owner
  */
 public abstract class SearchCommand {
-    private Map<String,List<String>> Data;
+    private final Map<String,List<String>> Data;
+    Set<String> results;
     
     public SearchCommand (Map<String,List<String>> data) {
         Data = data;
@@ -22,25 +24,13 @@ public abstract class SearchCommand {
     
     abstract boolean include (String CValue);
     
-    public Map<Integer,List<String>> Execute() {
-        Map<Integer,List<String>> results = new HashMap<>();
-        int num = 0;
+    public Set<String> Execute() {
+        results = new HashSet<>();
         for(String n : Data.keySet()){
             if(include(n)) {
-                AddToResults(results,Data.get(n), num++);   
+                results.addAll(Data.get(n));
             }
         }
-        
         return results;
-    }
-    
-  /**
-    * This adds to our results
-    * @param list The Search result list
-    * @param thing The value 
-    * @param currentTime The int for our ID
-    */
-    void AddToResults(Map<Integer,List<String>> list, List<String> thing, int currentTime) {
-       list.put(currentTime,thing);
     }
 }

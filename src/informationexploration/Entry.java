@@ -9,8 +9,8 @@ import java.util.*;
  * @author Brandon, Nathan
  */
 public class Entry {
-    private Map keys;
-    private List<Prize> prizes;
+    private final Map keys;
+    private final List<Prize> prizes;
     
     /**
      * Creator for Entry object
@@ -252,6 +252,7 @@ public class Entry {
     
     /**
      * returns a prize object
+     * @param index
      * @return - prize at index index
      */
     public Prize getPrize(int index){

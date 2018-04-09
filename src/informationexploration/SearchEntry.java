@@ -17,7 +17,6 @@ class SearchEntry {
     String Prize;
     String PrizeYear;
     String Name;
-    String LongName;
     String Gender;
     String CountryB;
     String CountryD;
@@ -156,4 +155,3 @@ class SearchEntry {
         return DYear;
     }
 }
-

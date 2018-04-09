@@ -6,8 +6,7 @@
 package informationexploration;
 
 import com.sun.javafx.application.LauncherImpl;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import javafx.application.Application;
 import javafx.application.Preloader;
 import javafx.event.ActionEvent;
@@ -33,6 +32,8 @@ public class NobelUI extends Application {
     private static final double WIDTH = 800;
     private static final double HEIGHT = 600;
     private Stage applicationStage;
+    private TextField entry;
+    private ComboBox searchFields;
     Extract DB = new Extract();
     SearchEngine searchEngine = new SearchEngine();
     
@@ -60,21 +61,21 @@ public class NobelUI extends Application {
         root.setAlignment(Pos.CENTER);
         
         //Defining the Name text field
-        final TextField entry = new TextField();
+        entry = new TextField();
         entry.setPromptText("Enter your search term.");
         entry.setPrefColumnCount(10);
         entry.getText();
         root.getChildren().add(entry);
         
         //Defining the Last Name text field
-        final ComboBox searchFields = new ComboBox();
+        searchFields = new ComboBox();
         searchFields.setPromptText("Chose your search category");
         searchFields.getItems().addAll(
             "Name",
             "Year of Birth",
             "Year of Death",
-            "Birthplace",
-            "Place of Death",
+            "Country of Birth",
+            "Country of Death",
             "Gender",
             "Prize",
             "Year of Prize"
@@ -114,16 +115,39 @@ public class NobelUI extends Application {
             
         @Override
         public void handle(ActionEvent e) {
-            System.out.println("We here1");
+            int exitFlag = 0;
+            String text = entry.getText().toLowerCase();
             SearchEntry ent = new SearchEntry();
-            ent.addCountryB("Denmark");
-            searchEngine.setSearchCrit(ent);
-            Map<Integer,List<String>> results = searchEngine.ExecuteSearch();
-            for(int entry: results.keySet()) {
-                System.out.println(entry);
+            /*String searchField = (String) searchFields.getValue();
+            switch(searchField) {
+                case "Name": ent.addName(searchField);
+                            break;  
+                case "Year of Birth": ent.addBYear(searchField);
+                            break;
+                case "Year of Death": ent.addDYear(searchField);
+                            break;
+                case "Country of Birth": ent.addCountryB(searchField);
+                            break;
+                case "Country of Death": ent.addCountryD(searchField);
+                            break;
+                case "Gender": ent.addGender(searchField);
+                            break;
+                case "Prize": ent.addPrize(searchField);
+                            break;
+                case "Year of Prize": ent.addPrizeYear(searchField);
+                            break;
+                default: System.out.println("Please select a search category!");
+                            exitFlag = 1;
+                            break;
+            }*/
+            //if (exitFlag == 0) {
+            ent.addName(text);
+                searchEngine.setSearchCrit(ent);
+                Set<String> results = searchEngine.ExecuteSearch();
+                //System.out.println(searchField);
+                System.out.println(text);
                 System.out.println(results.toString());
-            }
-            System.out.println("We here2");
+            //}
             
         }
     };
