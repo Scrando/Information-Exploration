@@ -26,6 +26,8 @@ public class Extract {
     public Map<String,List<String>> surNameDB = new HashMap();
     public Map<String,List<String>> bornDB = new HashMap();
     public Map<String,List<String>> diedDB = new HashMap();
+    public Map<String,List<String>> bornYearDB = new HashMap();
+    public Map<String,List<String>> diedYearDB = new HashMap();
     public Map<String,List<String>> bornCountryDB = new HashMap();
     public Map<String,List<String>> diedCountryDB = new HashMap();
     public Map<String,List<String>> genderDB = new HashMap();
@@ -282,6 +284,28 @@ public class Extract {
                 diedDB.put(tmpStr, tmpList);
             }
             diedDB.get(tmpStr).add(ent.getId().toString());
+        }
+        
+        // bornYearDB
+        tmpStr = ent.getSmallBirthyear().toString();
+        if (!tmpStr.equals("")){
+            List<String> tmpList = bornYearDB.get(tmpStr);
+            if (tmpList == null){
+                tmpList = new ArrayList<>();
+                bornYearDB.put(tmpStr, tmpList);
+            }
+            bornYearDB.get(tmpStr).add(ent.getId().toString());
+        }
+        
+        // diedYearDB
+        tmpStr = ent.getSmallDeathyear().toString();
+        if (!tmpStr.equals("")){
+            List<String> tmpList = diedYearDB.get(tmpStr);
+            if (tmpList == null){
+                tmpList = new ArrayList<>();
+                diedYearDB.put(tmpStr, tmpList);
+            }
+            diedYearDB.get(tmpStr).add(ent.getId().toString());
         }
         
         // bornCountryDB
