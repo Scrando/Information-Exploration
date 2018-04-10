@@ -89,7 +89,6 @@ public class Entry {
     }
     
     // ---------------------------------------------------------------- BIRTH/DEATH YEARS
-    
     /**
      * getter for birth year
      * @return - object mapped to birth year
@@ -99,11 +98,28 @@ public class Entry {
     }
     
     /**
+     * getter for birth year in YYYY format
+     * @return - object mapped to birth year
+     */
+    public Object getSmallBirthyear(){
+        if(this.keys.get("smallbirthyear").equals("")){
+            return this.keys.get("smallbirthyear");
+        }else{
+            return this.keys.get("smallbirthyear").toString().substring(0, 4);
+        }
+    }
+    
+    /**
      * setter for birth year
      * @param value - birth year of prize winner
      */
     public void setBirthyear(String value){
         this.keys.put("birthyear", value);
+        if(!value.equals("")){
+            this.keys.put("smallbirthyear", value.substring(0, 4));
+        }else{
+            this.keys.put("smallbirthyear", "");
+        }
     }
     
     /**
@@ -115,11 +131,28 @@ public class Entry {
     }
     
     /**
+     * getter for death year in YYYY format
+     * @return - object mapped to death year
+     */
+    public Object getSmallDeathyear(){
+        if(this.keys.get("smalldeathyear").equals("")){
+            return this.keys.get("smalldeathyear");
+        }else{
+            return this.keys.get("smalldeathyear").toString().substring(0, 4);
+        }
+    }
+    
+    /**
      * setter for death year
      * @param value - death year of prize winner
      */
     public void setDeathyear(String value){
         this.keys.put("deathyear", value);
+        if(!value.equals("")){
+            this.keys.put("smalldeathyear", value.substring(0, 4));
+        }else{
+            this.keys.put("smalldeathyear", "");
+        }
     }
     
     // ---------------------------------------------------------------- BIRTH PLACE
