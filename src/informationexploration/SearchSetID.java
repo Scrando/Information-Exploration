@@ -15,20 +15,25 @@ import java.util.Set;
  */
 public abstract class SearchSetID {
     private final Map<String,Entry> Data;
+    private Set<String> IDs;
     Set<Entry> results;
     
     public SearchSetID (Map<String,Entry> data) {
         Data = data;
     }
     
-    abstract boolean include (String ID);
+    abstract boolean include (Set<String> IDs);
     
     public Set<Entry> Execute() {
         results = new HashSet<>();
-        for(String n : Data.keySet()){
-            if(include(n)) {
+         for(String n : IDs){
+            for(String s: Data.keySet()){
+                if(s.equals(n)) {
                 results.add(Data.get(n));
+                }
+                
             }
+            
         }
         return results;
     }
