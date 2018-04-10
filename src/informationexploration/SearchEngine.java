@@ -100,14 +100,14 @@ public class SearchEngine {
         }
         //Birth Year
         if(bYear != null){
-            if(DB.bornDB.containsKey(bYear)){
-                SearchBy searchBorn = new SearchBy(DB.bornDB,bYear);
+            if(DB.bornYearDB.containsKey(bYear)){
+                SearchBy searchBorn = new SearchBy(DB.bornYearDB,bYear);
                 results = searchBorn.Execute();
             }  
         }
         if(dYear != null){
-            if(DB.diedDB.containsKey(dYear)){
-                SearchBy searchDied = new SearchBy(DB.diedDB,dYear);
+            if(DB.diedYearDB.containsKey(dYear)){
+                SearchBy searchDied = new SearchBy(DB.diedYearDB,dYear);
                 results = searchDied.Execute();
             }  
         }
