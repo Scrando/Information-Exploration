@@ -31,6 +31,6 @@ public class SearchByID extends SearchSetID {
      */
     @Override
     public boolean include (Set<String> value) {
-        return value.equals (look);
+        return value.equals (look); 
     }
 }
