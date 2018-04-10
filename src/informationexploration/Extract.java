@@ -27,9 +27,7 @@ public class Extract {
     public Map<String,List<String>> bornDB = new HashMap();
     public Map<String,List<String>> diedDB = new HashMap();
     public Map<String,List<String>> bornCountryDB = new HashMap();
-    public Map<String,List<String>> bornCityDB = new HashMap();
     public Map<String,List<String>> diedCountryDB = new HashMap();
-    public Map<String,List<String>> diedCityDB = new HashMap();
     public Map<String,List<String>> genderDB = new HashMap();
     public Map<String,List<String>> prizeYearDB = new HashMap();
     public Map<String,List<String>> prizeCategoryDB = new HashMap();
@@ -297,17 +295,6 @@ public class Extract {
             bornCountryDB.get(tmpStr).add(ent.getId().toString());
         }
         
-        // bornCityDB
-        tmpStr = ent.getBornCity().toString().toLowerCase();
-        if (!tmpStr.equals("")){
-            List<String> tmpList = bornCityDB.get(tmpStr);
-            if (tmpList == null){
-                tmpList = new ArrayList<>();
-                bornCityDB.put(tmpStr, tmpList);
-            }
-            bornCityDB.get(tmpStr).add(ent.getId().toString());
-        }
-        
         // diedCountryDB
         tmpStr = ent.getDeathCountry().toString().toLowerCase();
         if (!tmpStr.equals("")){
@@ -317,17 +304,6 @@ public class Extract {
                 diedCountryDB.put(tmpStr, tmpList);
             }
             diedCountryDB.get(tmpStr).add(ent.getId().toString());
-        }
-        
-        // diedCityDB
-        tmpStr = ent.getDeathCity().toString().toLowerCase();
-        if (!tmpStr.equals("")){
-            List<String> tmpList = diedCityDB.get(tmpStr);
-            if (tmpList == null){
-                tmpList = new ArrayList<>();
-                diedCityDB.put(tmpStr, tmpList);
-            }
-            diedCityDB.get(tmpStr).add(ent.getId().toString());
         }
         
         // genderDB

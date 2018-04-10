@@ -404,7 +404,6 @@ public class NobelUI extends Application {
             
             //Error check that search category is chosen and set into searchEntry
             String searchField = (String) searchFields.getValue();
-            System.out.println(searchField);
             if (searchField == null) {error.setText("Please select a search category!"); return;}
             switch(searchField) {
                 case "Name": ent.addName(term.toLowerCase());
@@ -433,10 +432,8 @@ public class NobelUI extends Application {
             lastSearch.setText("Last Search: " + searchTerm);
             error.setText(" ");
             
-            System.out.println(searchResults.toString());
             //execute search and display in new window
             searchResults = searchEngine.ExecuteSetSearch(searchResults);
-            System.out.println(searchResults.toString());
             displayResults(searchResults);
         }
     };
