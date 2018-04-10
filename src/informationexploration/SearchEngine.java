@@ -200,7 +200,7 @@ public class SearchEngine {
         //Birth Year
         if(bYear != null){
             for (String ID: IDs) {
-                temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase().substring(0, 4);
+                temp = ((String) DB.idDB.get(ID).getSmallBirthyear()).toLowerCase();
                 System.out.println(temp);
                 if (temp.equals(bYear))
                     results.add(ID);
@@ -208,7 +208,7 @@ public class SearchEngine {
         }
         if(dYear != null){
             for (String ID: IDs) {
-                temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase().substring(0, 4);
+                temp = ((String) DB.idDB.get(ID).getSmallDeathyear()).toLowerCase();
                 if (temp.equals(dYear))
                     results.add(ID);
             } 
