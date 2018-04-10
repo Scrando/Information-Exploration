@@ -180,7 +180,7 @@ public class NobelUI extends Application {
             //Display grid titles and a blank row
             displayResults.addRow(0, new Label("Prize Winners"), 
                                      new Label("Prize, Year"), 
-                                     new Label("Press button to view winner details")
+                                     new Label("Press button with the entries ID to view details")
             );
             displayResults.addRow(1, new Label(" "));
         
@@ -404,6 +404,7 @@ public class NobelUI extends Application {
             
             //Error check that search category is chosen and set into searchEntry
             String searchField = (String) searchFields.getValue();
+            System.out.println(searchField);
             if (searchField == null) {error.setText("Please select a search category!"); return;}
             switch(searchField) {
                 case "Name": ent.addName(term.toLowerCase());
@@ -424,10 +425,19 @@ public class NobelUI extends Application {
                             break;
             }
             
+            //Set search criteria in search engine
+            searchEngine.setSearchCrit(ent);
+            
             //Update text on main search window
             searchTerm = searchTerm + " + " + term + " (" + searchField + ") ";
             lastSearch.setText("Last Search: " + searchTerm);
             error.setText(" ");
+            
+            System.out.println(searchResults.toString());
+            //execute search and display in new window
+            searchResults = searchEngine.ExecuteSetSearch(searchResults);
+            System.out.println(searchResults.toString());
+            displayResults(searchResults);
         }
     };
 }

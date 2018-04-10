@@ -19,14 +19,14 @@ public class SearchEngine {
     //These are our search terms
     //The are null if we are not searching in them
     //storage:             Searchbar:        
-    String cPrize;         //"Prize",
-    String cPrizeYear;     //"Prize Year"
-    String cName;          //"Name",
-    String cGender;        //"Gender",
-    String cCountryBirth;  //"Birthplace",, 
-    String cCountryDeath;  //"Place of Death"
-    String cBYear;         //"Year of Birth",
-    String cDYear;         //"Year of Death",
+    String prize;         //"Prize",
+    String prizeYear;     //"Prize Year"
+    String name;          //"Name",
+    String gender;        //"Gender",
+    String countryBirth;  //"Birthplace",, 
+    String countryDeath;  //"Place of Death"
+    String bYear;         //"Year of Birth",
+    String dYear;         //"Year of Death",
    
     Extract DB;//currently saved database
 
@@ -47,69 +47,178 @@ public class SearchEngine {
     Set<String> ExecuteSearch(){
        
         Set<String> results = new HashSet<>();
-        Extract Database = DB;
        
         //Name
-        if(cName != null){     
+        if(name != null){     
             //Check if name in first
-            if(Database.firstNameDB.containsKey(cName)){
-                SearchBy nameFSearch = new SearchBy (Database.firstNameDB, cName);
+            if(DB.firstNameDB.containsKey(name)){
+                SearchBy nameFSearch = new SearchBy (DB.firstNameDB, name);
                 results.addAll(nameFSearch.Execute());
             } else{
 
             //Check if name in second
-            if(Database.surNameDB.containsKey(cName)){
-               SearchBy nameLSearch = new SearchBy (Database.surNameDB, cName);
+            if(DB.surNameDB.containsKey(name)){
+               SearchBy nameLSearch = new SearchBy (DB.surNameDB, name);
                results = nameLSearch.Execute();
             } 
             } 
         }
         //Gender
-        if(cGender != null){
-            if(Database.genderDB.containsKey(cGender)){
-                SearchBy genderSearch  = new SearchBy(Database.genderDB,cGender);
+        if(gender != null){
+            if(DB.genderDB.containsKey(gender)){
+                SearchBy genderSearch  = new SearchBy(DB.genderDB,gender);
                 results = genderSearch.Execute();
             }    
         }
         //Prize
-        if(cPrize != null){
-            if(Database.prizeCategoryDB.containsKey(cPrize)){
-                SearchBy prizeSearch = new SearchBy(Database.prizeCategoryDB, cPrize);        
+        if(prize != null){
+            if(DB.prizeCategoryDB.containsKey(prize)){
+                SearchBy prizeSearch = new SearchBy(DB.prizeCategoryDB, prize);        
                 results = prizeSearch.Execute();
 
             }
         }
-        if (cPrizeYear != null){
-            if(Database.prizeYearDB.containsKey(cPrizeYear)){
-                SearchBy yearPrizeSearch = new SearchBy(Database.prizeYearDB, cPrize);        
+        if (prizeYear != null){
+            if(DB.prizeYearDB.containsKey(prizeYear)){
+                SearchBy yearPrizeSearch = new SearchBy(DB.prizeYearDB, prize);        
                 results = yearPrizeSearch.Execute();              
             }
         }
         //Birth Country
-        if(cCountryBirth != null){
-            if(Database.bornCountryDB.containsKey(cCountryBirth)){
-                SearchBy countryBornSearch = new SearchBy(Database.bornCountryDB,cCountryBirth);
+        if(countryBirth != null){
+            if(DB.bornCountryDB.containsKey(countryBirth)){
+                SearchBy countryBornSearch = new SearchBy(DB.bornCountryDB,countryBirth);
                 results = countryBornSearch.Execute();
             }  
         }
         //Death Country
-        if(cCountryDeath != null){
-            if(Database.diedCountryDB.containsKey(cCountryDeath)){
-                SearchBy countryDiedSearch = new SearchBy(Database.diedCountryDB,cCountryDeath);
+        if(countryDeath != null){
+            if(DB.diedCountryDB.containsKey(countryDeath)){
+                SearchBy countryDiedSearch = new SearchBy(DB.diedCountryDB,countryDeath);
                 results = countryDiedSearch.Execute();            
             }  
         }
         //Birth Year
-        if(cBYear != null){
-            if(Database.bornDB.containsKey(cBYear)){
-                SearchBy searchBorn = new SearchBy(Database.bornDB,cBYear);
+        if(bYear != null){
+            if(DB.bornDB.containsKey(bYear)){
+                SearchBy searchBorn = new SearchBy(DB.bornDB,bYear);
                 results = searchBorn.Execute();
             }  
         }
-        if(cDYear != null){
-            if(Database.diedDB.containsKey(cDYear)){
-                SearchBy searchDied = new SearchBy(Database.diedDB,cDYear);
+        if(dYear != null){
+            if(DB.diedDB.containsKey(dYear)){
+                SearchBy searchDied = new SearchBy(DB.diedDB,dYear);
                 results = searchDied.Execute();
+            }  
+        }
+       return results; //return 
+    } 
+    
+    /**
+     * For use when refining a previous search
+     * Operates on a set of IDs, searching for the searchCriteria within 
+     * The entry objects matching the ids
+     * @param IDs - set of ids from a previous search
+     * @return  - results, set of ids that match this search
+     */
+    Set<String> ExecuteSetSearch(Set<String> IDs){
+       
+        Set<String> results = new HashSet<>();
+        String temp;
+        
+        //Name
+        if(name != null){     
+            //Check if name in first
+            if(DB.firstNameDB.containsKey(name)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getFirstName()).toLowerCase();
+                    if (temp.equals(name))
+                        results.add(ID);
+                }
+            }
+            //Check if name in second
+            if(DB.surNameDB.containsKey(name)){
+               for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getLastName()).toLowerCase();;
+                    if (temp.equals(name))
+                        results.add(ID);
+                }
+            } 
+        }
+        //Gender
+        if(gender != null){
+            if(DB.genderDB.containsKey(gender)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getGender()).toLowerCase();
+                    if (temp.equals(gender))
+                        results.add(ID);
+                }
+            }    
+        }
+        //Prize
+        if(prize != null){
+            if(DB.prizeCategoryDB.containsKey(prize)){
+                for (String ID: IDs) {
+                    List<Prize> prizes = DB.idDB.get(ID).getPrizes();
+                    for(Prize i: prizes) {
+                        temp = ((String) i.getPrizeCat()).toLowerCase();
+                        if (temp.equals(prize))
+                            results.add(ID);
+                    }
+                }
+            }
+        }
+        if (prizeYear != null){
+            if(DB.prizeYearDB.containsKey(prizeYear)){
+                for (String ID: IDs) {
+                    List<Prize> prizes = DB.idDB.get(ID).getPrizes();
+                    for(Prize i: prizes) {
+                        temp = ((String) i.getPrizeYear()).toLowerCase();
+                        if (temp.equals(prizeYear))
+                            results.add(ID);
+                    }
+                }            
+            }
+        }
+        //Birth Country
+        if(countryBirth != null){
+            if(DB.bornCountryDB.containsKey(countryBirth)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getBornCountry()).toLowerCase();
+                    if (temp.equals(countryBirth))
+                        results.add(ID);
+                }
+            }  
+        }
+        //Death Country
+        if(countryDeath != null){
+            System.out.println(countryDeath);
+            if(DB.diedCountryDB.containsKey(countryDeath)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getDeathCountry()).toLowerCase();
+                    System.out.println(temp);
+                    if (temp.equals(countryDeath))
+                        results.add(ID);
+                }          
+            }  
+        }
+        //Birth Year
+        if(bYear != null){
+            if(DB.bornDB.containsKey(bYear)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase();
+                    if (temp.equals(bYear))
+                        results.add(ID);
+                }
+            }  
+        }
+        if(dYear != null){
+            if(DB.diedDB.containsKey(dYear)){
+                for (String ID: IDs) {
+                    temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase();
+                    if (temp.equals(dYear))
+                        results.add(ID);
+                }
             }  
         }
        return results; //return 
@@ -121,13 +230,13 @@ public class SearchEngine {
     * @param ent SearchEntry object
     */
     void setSearchCrit(SearchEntry ent){
-        cPrize = ent.getPrize();
-        cPrizeYear = ent.getPrizeYear();
-        cName = ent.getName();       
-        cGender = ent.getGender();
-        cCountryBirth = ent.getCountryB();
-        cCountryDeath = ent.getCountryD();
-        cBYear = ent.getBYear();
-        cDYear = ent.getDYear(); 
+        prize = ent.getPrize();
+        prizeYear = ent.getPrizeYear();
+        name = ent.getName();       
+        gender = ent.getGender();
+        countryBirth = ent.getCountryB();
+        countryDeath = ent.getCountryD();
+        bYear = ent.getBYear();
+        dYear = ent.getDYear(); 
     }  
 }
