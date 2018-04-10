@@ -72,9 +72,7 @@ public class SearchEngine {
                     SearchBy nameLSearchn = new SearchBy (DB.surNameDB, splitStr[lenS-1]);
                     SearchBy nameFSearchn = new SearchBy (DB.firstNameDB, splitStr[0]);
                     holderF.addAll(nameFSearchn.Execute());
-                    System.out.println(holderF);
                     holderL.addAll(nameLSearchn.Execute());
-                    System.out.println(holderL);
                     for(String n : holderF){
                         for(String m : holderL){
                             if(n.equals(m)){
