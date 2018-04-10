@@ -31,7 +31,6 @@ public abstract class SearchSetID {
                 if(s.equals(n)) {
                 results.add(Data.get(n));
                 }
-                
             }
             
         }
