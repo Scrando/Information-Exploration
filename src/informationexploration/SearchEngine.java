@@ -45,8 +45,10 @@ public class SearchEngine {
     * @return Map<Integer,List<String>> of resulting Integers and IDs 
     */
     Set<String> ExecuteSearch(){
-       
+        int lenS;
         Set<String> results = new HashSet<>();
+        Set<String> holderF = new HashSet<>();
+        Set<String> holderL = new HashSet<>();        
        
         //Name
         if(name != null){     
@@ -60,6 +62,28 @@ public class SearchEngine {
             if(DB.surNameDB.containsKey(name)){
                SearchBy nameLSearch = new SearchBy (DB.surNameDB, name);
                results = nameLSearch.Execute();
+            } 
+            //This handles our full names
+            if(results.isEmpty()){
+                String[] splitStr = name.split(" ");
+                lenS = splitStr.length;
+                //check length splitStr[0] and splitStr[lenS-1];
+                if(DB.firstNameDB.containsKey(splitStr[0])&&(DB.surNameDB.containsKey(splitStr[lenS-1]))){
+                    SearchBy nameLSearchn = new SearchBy (DB.surNameDB, splitStr[lenS-1]);
+                    SearchBy nameFSearchn = new SearchBy (DB.firstNameDB, splitStr[0]);
+                    holderF.addAll(nameFSearchn.Execute());
+                    System.out.println(holderF);
+                    holderL.addAll(nameLSearchn.Execute());
+                    System.out.println(holderL);
+                    for(String n : holderF){
+                        for(String m : holderL){
+                            if(n.equals(m)){
+                            results.add(n);
+                            }
+                        }
+                    }
+                }
+                
             } 
             } 
         }
