@@ -13,8 +13,8 @@ import java.util.Set;
  * @author Brandon
  */
 public class Prize {
-    private Map keys;
-    private List<Affiliation> affs;
+    private final Map keys;
+    private final List<Affiliation> affs;
     
     /**
      * Creator for Prize object
@@ -92,6 +92,7 @@ public class Prize {
     
     /**
      * returns a affiliation object
+     * @param index
      * @return - affiliation at index index
      */
     public Affiliation getAffiliation(int index){

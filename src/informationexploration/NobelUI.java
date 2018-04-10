@@ -22,6 +22,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -41,7 +42,7 @@ public class NobelUI extends Application {
     private ComboBox searchFields;
     private Label error;
     private Label lastSearch;
-    private String searchTerm;
+    private String searchTerm = "";
     Extract DB = new Extract();
     SearchEngine searchEngine = new SearchEngine();
     
@@ -92,13 +93,16 @@ public class NobelUI extends Application {
         
         //Defining the Submit button
         Button search = new Button("New Search");
-        root.getChildren().add(search);
         search.setOnAction(searchButtonOnActionEventHandler);
         
         //Defining the Submit button
-        //Button refine = new Button("Refine Last Search");
-        //root.getChildren().add(refine);
-        //search.setOnAction(refineButtonOnActionEventHandler);
+        Button refine = new Button("Refine Last Search");
+        refine.setOnAction(refineButtonOnActionEventHandler);
+        
+        //Place search buttons alongside eachother
+        HBox hbox = new HBox(search, refine);
+        hbox.setAlignment(Pos.CENTER);
+        root.getChildren().add(hbox);
         
         //Defining the Clear button
         Button clear = new Button("Clear");
@@ -108,15 +112,15 @@ public class NobelUI extends Application {
         root.getChildren().add(clear);
         
         //set error
-        error = new Label(" ");
-        title.setFont(new Font("Arial", 20));
-        title.setTextAlignment(TextAlignment.CENTER);
+        error = new Label("");
+        error.setFont(new Font("Arial", 15));
+        error.setTextAlignment(TextAlignment.CENTER);
         root.getChildren().add(error);
         
         //set last search
-        lastSearch = new Label(" ");
-        title.setFont(new Font("Arial", 20));
-        title.setTextAlignment(TextAlignment.CENTER);
+        lastSearch = new Label("");
+        lastSearch.setFont(new Font("Arial", 15));
+        lastSearch.setTextAlignment(TextAlignment.CENTER);
         root.getChildren().add(lastSearch);
 
         // Create scene and show application stage.
@@ -132,6 +136,210 @@ public class NobelUI extends Application {
     public static void main(String[] args) {
         LauncherImpl.launchApplication(NobelUI.class, NobelPreload.class, args);
     }   
+    
+    /**
+     * display results of a search
+     * @param results - resulting ids from search in a set
+     */
+    private void displayResults(Set<String> results) {
+        
+        //create borderpane and an inset object for padding
+        BorderPane borderpane = new BorderPane();
+        Insets insets = new Insets(25);
+        
+        //set scene label
+        Label title = new Label("Nobel Prize Search Results");
+        title.setFont(new Font("Arial", 25));
+        title.setTextAlignment(TextAlignment.CENTER);
+        
+        //Display current search terms
+        Label search = new Label("Search Term(s): " + searchTerm);
+        search.setFont(new Font("Arial", 15));
+        search.setTextAlignment(TextAlignment.CENTER);
+        
+        //add labels to vbox
+        VBox root = new VBox(title, search);
+        root.setAlignment(Pos.TOP_CENTER);
+        
+        //create grid with horizontal padding of 10
+        GridPane displayResults = new GridPane();
+        displayResults.setHgap(10);
+        
+        ScrollPane scrollPane = new ScrollPane(displayResults);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        
+        //write no results found is applicable
+        if (results.isEmpty()) {
+            Label result = new Label("No Results Found...");
+            result.setFont(new Font("Arial", 15));
+            displayResults.add(result, 1 ,0);
+        } else {
+        
+            //Display grid titles and a blank row
+            displayResults.addRow(0, new Label("Prize Winners"), 
+                                     new Label("Prize, Year"), 
+                                     new Label("Press button to view winner details")
+            );
+            displayResults.addRow(1, new Label(" "));
+        
+            //iterate through all results display names and prizes
+            int i = 2;
+            for (String ID: results) {
+                displayResults.addRow(i, 
+                        createNameLabel(ID), 
+                        createPrizeLabel(ID),
+                        createEntryButton(ID)
+                );
+                i++;
+            }
+        }
+        //place vbox and grid into borderpane with margins
+        borderpane.setTop(root);
+        BorderPane.setMargin(root, insets);
+        
+        borderpane.setCenter(scrollPane);
+        BorderPane.setMargin(scrollPane, insets);
+        
+        //create and show stage
+        Stage stage = new Stage();
+        stage.setTitle("Search Results");
+        stage.setScene(new Scene(borderpane, WIDTH - 100, HEIGHT));
+        stage.show();
+    }
+    
+    /**
+     * Create and return a label with the name for the given nobel ID
+     * @param ID - string ID of nobel winner
+     * @return - LAbel object with name as text
+     */
+    private Label createNameLabel(String ID) {
+        
+        //open ID database
+        Entry result = DB.idDB.get(ID);
+        
+        //append names into string builder and return
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(result.getFirstName())
+                     .append(" ")
+                     .append(result.getLastName()
+        );
+        return new Label(stringBuilder.toString());
+    }
+
+    /**
+     * Create and return a label with the prizes and years for a given nobel ID
+     * @param ID - string ID of Nobel winner
+     * @return 
+     */
+    private Label createPrizeLabel(String ID) {
+        
+        //open ID database and access prize list for ID
+        List<Prize> result = DB.idDB.get(ID).getPrizes();
+        
+        //using stringbuilder write the prize or prizes of the nobel winner
+        StringBuilder stringBuilder = new StringBuilder();
+        int i = 0;
+        for(Prize prize: result) {
+            if (i > 0)
+                stringBuilder.append(". ");
+            //Capitalize the prize and append the year
+            String value = (String) prize.getPrizeCat();
+            stringBuilder.append(value.substring(0,1).toUpperCase())
+                         .append(value.substring(1).toLowerCase())
+                         .append(", ")
+                         .append(prize.getPrizeYear());
+            i++;
+        }
+        return new Label(stringBuilder.toString());
+    }
+    
+    private Button createEntryButton(String ID) {
+        //Defining the  button
+        Button entryView = new Button(ID);
+        entryView.setOnAction(entryViewButtonOnActionEventHandler);
+        return entryView;
+    }
+    
+    private void displayEntryPage(String ID) {
+        //create borderpane and an inset object for padding
+        BorderPane borderpane = new BorderPane();
+        Insets insets = new Insets(50);
+        Entry winnerEntry = DB.idDB.get(ID);
+        
+        //Label for name
+        Label nameLabel = createNameLabel(ID);
+        nameLabel.setFont(new Font("Arial", 20));
+        nameLabel.setTextAlignment(TextAlignment.CENTER);
+        
+        //Title vbox
+        VBox title = new VBox(nameLabel);
+        title.setAlignment(Pos.TOP_CENTER); 
+        
+        //Gender
+        String gender = (String) winnerEntry.getGender();
+        StringBuilder genderStr = new StringBuilder();
+        genderStr.append(gender.substring(0,1).toUpperCase())
+                 .append(gender.substring(1).toLowerCase()
+        );
+        VBox entryInfo = new VBox(new Label(genderStr.toString()));
+        
+        //Birth info
+        StringBuilder bInfo = new StringBuilder();
+        bInfo.append("Born ")
+             .append(winnerEntry.getBirthyear())
+             .append(" in ")
+             .append(winnerEntry.getBornCity())
+             .append(", ")
+             .append(winnerEntry.getBornCountry())
+             .append(".")
+        ;
+        
+        entryInfo.getChildren().add(new Label(bInfo.toString()));
+        
+        //Death info
+        if (!winnerEntry.getDeathyear().equals("")) {
+            StringBuilder dInfo = new StringBuilder();
+            dInfo.append("Died ")
+                 .append(winnerEntry.getDeathyear())
+                 .append(" in ")
+                 .append(winnerEntry.getDeathCity())
+                 .append(", ")
+                 .append(winnerEntry.getDeathCountry())
+                 .append(".")        
+            ;
+            entryInfo.getChildren().add(new Label(dInfo.toString()));
+        }
+        
+        //Prize info
+        //open ID database and access prize list for ID
+        List<Prize> result = DB.idDB.get(ID).getPrizes();
+
+        for(Prize prize: result) {
+            StringBuilder prizes = new StringBuilder();
+            //Capitalize the prize and append the year
+            String value = (String) prize.getPrizeCat();
+            prizes.append("Nobel ")
+                  .append(value.substring(0,1).toUpperCase())
+                  .append(value.substring(1).toLowerCase())
+                  .append(" Prize in ")
+                  .append(prize.getPrizeYear()
+            );
+            entryInfo.getChildren().add(new Label(prizes.toString()));
+        }
+        
+        borderpane.setTop(title);
+        BorderPane.setMargin(title, insets);
+        
+        borderpane.setCenter(entryInfo);
+        BorderPane.setMargin(entryInfo, insets);
+        
+        //create and show stage
+        Stage stage = new Stage();
+        stage.setTitle(nameLabel.getText());
+        stage.setScene(new Scene(borderpane, WIDTH - 200, HEIGHT - 100));
+        stage.show();
+    }
     
     EventHandler<ActionEvent> searchButtonOnActionEventHandler = 
         new EventHandler<ActionEvent>() {
@@ -179,102 +387,22 @@ public class NobelUI extends Application {
         }
     };
     
-    /**
-     * display results of a search
-     * @param results - resulting ids from search in a set
-     */
-    private void displayResults(Set<String> results) {
-        
-        //create borderpane and an inset object for padding
-        BorderPane borderpane = new BorderPane();
-        Insets insets = new Insets(25);
-        
-        //set scene label
-        Label title = new Label("Nobel Prize Search Results");
-        title.setFont(new Font("Arial", 25));
-        title.setTextAlignment(TextAlignment.CENTER);
-        
-        //Display current search terms
-        Label search = new Label("Search Term(s): " + searchTerm);
-        search.setFont(new Font("Arial", 15));
-        search.setTextAlignment(TextAlignment.CENTER);
-        
-        //add labels to vbox
-        VBox root = new VBox(title, search);
-        root.setAlignment(Pos.TOP_CENTER);
-        
-        //create grid with horizontal padding of 10
-        GridPane displayResults = new GridPane();
-        displayResults.setHgap(10);
-        
-        ScrollPane scrollPane = new ScrollPane(displayResults);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        
-        //write no results found is applicable
-        if (results.isEmpty()) {
-            Label result = new Label("No Results Found");
-            displayResults.add(result, 0 ,0);
+    EventHandler<ActionEvent> refineButtonOnActionEventHandler = 
+        new EventHandler<ActionEvent>() {
+            
+        @Override
+        public void handle(ActionEvent e) {
+            if (searchTerm.equals(""))
+                error.setText("No previous search to refine!");
         }
-        
-        //iterate through all results display names and prizes
-        int i = 0;
-        for (String ID: results) {
-            displayResults.add(createNameLabel(ID), 0, i);
-            displayResults.add(createPrizeLabel(ID), 1, i);
-            i++;
-        }
-        
-        //place vbox and grid into borderpane with margins
-        borderpane.setTop(root);
-        BorderPane.setMargin(root, insets);
-        
-        borderpane.setCenter(scrollPane);
-        BorderPane.setMargin(scrollPane, insets);
-        
-        //create and show stage
-        Stage stage = new Stage();
-        stage.setTitle("Search Results");
-        stage.setScene(new Scene(borderpane, WIDTH - 100, HEIGHT));
-        stage.show();
-    }
+    };
     
-    /**
-     * Create and return a label with the name for the given nobel ID
-     * @param ID - string ID of nobel winner
-     * @return - LAbel object with name as text
-     */
-    private Label createNameLabel(String ID) {
-        
-        //open ID database
-        Entry result = DB.idDB.get(ID);
-        
-        //append names into string builder and return
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(result.getFirstName()).append(" ").append(result.getLastName());
-        return new Label(stringBuilder.toString());
-    }
-
-    /**
-     * Create and return a label with the prizes and years for a given nobel ID
-     * @param ID - string ID of nobel winner
-     * @return 
-     */
-    private Label createPrizeLabel(String ID) {
-        
-        //open ID database and access prize list for ID
-        List<Prize> result = DB.idDB.get(ID).getPrizes();
-        
-        //using stringbuilder write the prize or prizes of the nobel winner
-        StringBuilder stringBuilder = new StringBuilder();
-        int i = 0;
-        for(Prize prize: result) {
-            if (i > 0)
-                stringBuilder.append(", ");
-            String value = (String) prize.getPrizeCat();
-            stringBuilder.append(value.substring(0,1).toUpperCase() + value.substring(1).toLowerCase()).append(" ").append(prize.getPrizeYear());
-            i++;
+    EventHandler<ActionEvent> entryViewButtonOnActionEventHandler = 
+        new EventHandler<ActionEvent>() {
+            
+        @Override
+        public void handle(ActionEvent e) {
+            displayEntryPage(((Button)(e.getSource())).getText());
         }
-        return new Label(stringBuilder.toString());
-    }
+    };
 }
