@@ -192,7 +192,6 @@ public class SearchEngine {
         }
         //Death Country
         if(countryDeath != null){
-            System.out.println(countryDeath);
             if(DB.diedCountryDB.containsKey(countryDeath)){
                 for (String ID: IDs) {
                     temp = ((String) DB.idDB.get(ID).getDeathCountry()).toLowerCase();
@@ -204,22 +203,20 @@ public class SearchEngine {
         }
         //Birth Year
         if(bYear != null){
-            if(DB.bornDB.containsKey(bYear)){
-                for (String ID: IDs) {
-                    temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase();
-                    if (temp.equals(bYear))
-                        results.add(ID);
-                }
-            }  
+            for (String ID: IDs) {
+                
+                temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase().substring(0, 4);
+                System.out.println(temp);
+                if (temp.equals(bYear))
+                    results.add(ID);
+            } 
         }
         if(dYear != null){
-            if(DB.diedDB.containsKey(dYear)){
-                for (String ID: IDs) {
-                    temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase();
-                    if (temp.equals(dYear))
-                        results.add(ID);
-                }
-            }  
+            for (String ID: IDs) {
+                temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase().substring(0, 4);
+                if (temp.equals(dYear))
+                    results.add(ID);
+            } 
         }
        return results; //return 
     } 
