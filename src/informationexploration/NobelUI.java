@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -42,7 +43,7 @@ public class NobelUI extends Application {
     private ComboBox searchFields;
     private Label error;
     private Label lastSearch;
-    private String searchTerm = "";
+    private String searchTerm;
     Extract DB = new Extract();
     SearchEngine searchEngine = new SearchEngine();
     Set<String> searchResults;
@@ -94,23 +95,18 @@ public class NobelUI extends Application {
         
         //Defining the Submit button
         Button search = new Button("New Search");
-        search.setOnAction(searchButtonOnActionEventHandler);
-        
-        //Defining the Submit button
-        Button refine = new Button("Refine Last Search");
-        refine.setOnAction(refineButtonOnActionEventHandler);
-        
-        //Place search buttons alongside eachother
-        HBox hbox = new HBox(search, refine);
-        hbox.setAlignment(Pos.CENTER);
-        root.getChildren().add(hbox);
+        search.setOnAction(searchButtonOnActionEventHandler); 
         
         //Defining the Clear button
         Button clear = new Button("Clear");
         clear.setOnAction((ActionEvent e) -> {
             entry.clear();
         });
-        root.getChildren().add(clear);
+        
+        //Place search buttons alongside eachother
+        HBox hbox = new HBox(search, clear);
+        hbox.setAlignment(Pos.CENTER);
+        root.getChildren().add(hbox);
         
         //set error
         error = new Label("");
@@ -154,14 +150,33 @@ public class NobelUI extends Application {
         title.setTextAlignment(TextAlignment.CENTER);
         
         //Display current search terms
-        Label search = new Label("Search Term(s): " + searchTerm);
-        search.setFont(new Font("Arial", 15));
-        search.setTextAlignment(TextAlignment.CENTER);
+        Label searchTerms = new Label("Search Term(s): " + searchTerm);
+        searchTerms.setFont(new Font("Arial", 15));
+        searchTerms.setTextAlignment(TextAlignment.CENTER);
+        
+        entry.setPrefWidth(300);
+        HBox hbox1 = new HBox(entry, searchFields);
+        
+        //Defining the Submit button
+        Button search = new Button("New Search");
+        search.setOnAction(searchButtonOnActionEventHandler); 
+        
+        //Defining the Submit button
+        Button refine = new Button("Refine Last Search");
+        refine.setOnAction(refineButtonOnActionEventHandler);
+        
+        //Defining the Clear button
+        Button clear = new Button("Clear");
+        clear.setOnAction((ActionEvent e) -> {
+            entry.clear();
+        });
+        
+        HBox hbox2 = new HBox(search, refine, clear);
         
         //add labels to vbox
-        VBox root = new VBox(title, search);
+        VBox root = new VBox(title, searchTerms, hbox1, hbox2);
         root.setAlignment(Pos.TOP_CENTER);
-        
+              
         //create grid with horizontal padding of 10
         GridPane displayResults = new GridPane();
         displayResults.setHgap(10);
@@ -205,7 +220,7 @@ public class NobelUI extends Application {
         //create and show stage
         Stage stage = new Stage();
         stage.setTitle("Search Results");
-        stage.setScene(new Scene(borderpane, WIDTH - 100, HEIGHT));
+        stage.setScene(new Scene(borderpane, WIDTH, HEIGHT));
         stage.show();
     }
     
@@ -225,25 +240,32 @@ public class NobelUI extends Application {
         title.setAlignment(Pos.TOP_CENTER); 
         
         //Gender
-        String gender = (String) winnerEntry.getGender();
         StringBuilder genderStr = new StringBuilder();
-        genderStr.append(gender.substring(0,1).toUpperCase())
-                 .append(gender.substring(1).toLowerCase()
-        );
+        if (winnerEntry.getGender().equals("org")) {
+            genderStr.append("Organization");
+        } else {
+            String gender = (String) winnerEntry.getGender();
+            genderStr.append(gender.substring(0,1).toUpperCase())
+                     .append(gender.substring(1).toLowerCase()
+                     );
+        }
         VBox entryInfo = new VBox(new Label(genderStr.toString()));
         
         //Birth info
-        StringBuilder bInfo = new StringBuilder();
-        bInfo.append("Born ")
-             .append(winnerEntry.getBirthyear())
-             .append(" in ")
-             .append(winnerEntry.getBornCity())
-             .append(", ")
-             .append(winnerEntry.getBornCountry())
-             .append(".")
+        if (!winnerEntry.getBirthyear().equals("")) {
+            StringBuilder bInfo = new StringBuilder();
+            bInfo.append("Born ")
+                .append(winnerEntry.getBirthyear())
+                .append(" in ")
+                .append(winnerEntry.getBornCity())
+                .append(", ")
+                .append(winnerEntry.getBornCountry())
+                .append(".")
         ;
-        
         entryInfo.getChildren().add(new Label(bInfo.toString()));
+        }
+        
+        
         
         //Death info
         if (!winnerEntry.getDeathyear().equals("")) {
@@ -276,11 +298,22 @@ public class NobelUI extends Application {
             entryInfo.getChildren().add(new Label(prizes.toString()));
         }
         
+        Button close = new Button("Close");
+        close.setOnAction((ActionEvent e) -> {
+            ((Node)(e.getSource())).getScene().getWindow().hide();
+        });
+        
+        HBox hbox = new HBox(close);
+        hbox.setAlignment(Pos.CENTER);
+                
         borderpane.setTop(title);
         BorderPane.setMargin(title, insets);
         
         borderpane.setCenter(entryInfo);
         BorderPane.setMargin(entryInfo, insets);
+        
+        borderpane.setBottom(hbox);
+        BorderPane.setMargin(hbox, insets);
         
         //create and show stage
         Stage stage = new Stage();
@@ -352,6 +385,7 @@ public class NobelUI extends Application {
             
             //Get search term from box and create searchEntry
             String term = entry.getText();
+            
             SearchEntry ent = new SearchEntry();
             
             //Error check that search category is chosen and set into searchEntry
@@ -368,7 +402,8 @@ public class NobelUI extends Application {
                             break;
                 case "Country of Death": ent.addCountryD(term.toLowerCase());
                             break;
-                case "Gender": ent.addGender(term.toLowerCase());
+                case "Gender": if(term.equalsIgnoreCase("Organization")) term = "org";
+                            ent.addGender(term.toLowerCase());
                             break;
                 case "Prize": ent.addPrize(term.toLowerCase());
                             break;
@@ -386,6 +421,7 @@ public class NobelUI extends Application {
             
             //execute search and display in new window
             searchResults = searchEngine.ExecuteSearch();
+            ((Node)(e.getSource())).getScene().getWindow().hide();
             displayResults(searchResults);
         }
     };
@@ -395,8 +431,6 @@ public class NobelUI extends Application {
             
         @Override
         public void handle(ActionEvent e) {
-            if (searchTerm.equals(""))
-                error.setText("No previous search to refine!");
             
             //Get search term from box and create searchEntry
             String term = entry.getText();
@@ -434,6 +468,7 @@ public class NobelUI extends Application {
             
             //execute search and display in new window
             searchResults = searchEngine.ExecuteSetSearch(searchResults);
+            ((Node)(e.getSource())).getScene().getWindow().hide();
             displayResults(searchResults);
         }
     };

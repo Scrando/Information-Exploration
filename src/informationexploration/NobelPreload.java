@@ -7,6 +7,7 @@ package informationexploration;
 
 import javafx.application.Platform;
 import javafx.application.Preloader;
+import javafx.application.Preloader.StateChangeNotification.Type;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -63,4 +64,11 @@ public class NobelPreload extends Preloader {
             progress.setText(((ProgressNotification) info).getProgress() + "%");
         }
     }
+    
+    @Override
+    public void handleStateChangeNotification(StateChangeNotification stateChangeNotification) {
+      if (stateChangeNotification.getType() == Type.BEFORE_START) {
+         preloaderStage.hide();
+      }
+   }
 }
