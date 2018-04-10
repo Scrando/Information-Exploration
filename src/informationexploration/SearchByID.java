@@ -6,20 +6,21 @@
 package informationexploration;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Search data for individual ID
  * @author Connor
  */
 public class SearchByID extends SearchSetID { 
-    private final String look;
+    private final Set<String> look;
     
     /**
      * set up search
      * @param data 
      * @param lookFor 
      */
-    public SearchByID (Map<String,Entry> data, String lookFor) {
+    public SearchByID (Map<String,Entry> data, Set<String> lookFor) {
         super (data);
         look = lookFor;
     }
@@ -29,7 +30,7 @@ public class SearchByID extends SearchSetID {
      * @return 
      */
     @Override
-    public boolean include (String value) {
+    public boolean include (Set<String> value) {
         return value.equals (look);
     }
 }
