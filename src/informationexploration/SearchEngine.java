@@ -157,28 +157,24 @@ public class SearchEngine {
         }
         //Prize
         if(prize != null){
-            if(DB.prizeCategoryDB.containsKey(prize)){
-                for (String ID: IDs) {
-                    List<Prize> prizes = DB.idDB.get(ID).getPrizes();
-                    for(Prize i: prizes) {
-                        temp = ((String) i.getPrizeCat()).toLowerCase();
-                        if (temp.equals(prize))
-                            results.add(ID);
-                    }
+            for (String ID: IDs) {
+                List<Prize> prizes = DB.idDB.get(ID).getPrizes();
+                for(Prize i: prizes) {
+                    temp = ((String) i.getPrizeCat()).toLowerCase();
+                    if (temp.equals(prize))
+                        results.add(ID);
                 }
             }
         }
         if (prizeYear != null){
-            if(DB.prizeYearDB.containsKey(prizeYear)){
-                for (String ID: IDs) {
-                    List<Prize> prizes = DB.idDB.get(ID).getPrizes();
-                    for(Prize i: prizes) {
-                        temp = ((String) i.getPrizeYear()).toLowerCase();
-                        if (temp.equals(prizeYear))
-                            results.add(ID);
-                    }
-                }            
-            }
+            for (String ID: IDs) {
+                List<Prize> prizes = DB.idDB.get(ID).getPrizes();
+                for(Prize i: prizes) {
+                    temp = ((String) i.getPrizeYear()).toLowerCase();
+                    if (temp.equals(prizeYear))
+                        results.add(ID);
+                }
+            }              
         }
         //Birth Country
         if(countryBirth != null){
@@ -206,7 +202,7 @@ public class SearchEngine {
         if(bYear != null){
             if(DB.bornDB.containsKey(bYear)){
                 for (String ID: IDs) {
-                    temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase();
+                    temp = ((String) DB.idDB.get(ID).getBirthyear()).toLowerCase().substring(0, 3);
                     if (temp.equals(bYear))
                         results.add(ID);
                 }
@@ -215,7 +211,8 @@ public class SearchEngine {
         if(dYear != null){
             if(DB.diedDB.containsKey(dYear)){
                 for (String ID: IDs) {
-                    temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase();
+                    temp = ((String) DB.idDB.get(ID).getDeathyear()).toLowerCase().substring(0, 3);
+                    System.out.println(temp);
                     if (temp.equals(dYear))
                         results.add(ID);
                 }
