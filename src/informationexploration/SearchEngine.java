@@ -80,7 +80,7 @@ public class SearchEngine {
         }
         if (prizeYear != null){
             if(DB.prizeYearDB.containsKey(prizeYear)){
-                SearchBy yearPrizeSearch = new SearchBy(DB.prizeYearDB, prize);        
+                SearchBy yearPrizeSearch = new SearchBy(DB.prizeYearDB, prizeYear);        
                 results = yearPrizeSearch.Execute();              
             }
         }
