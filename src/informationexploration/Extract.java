@@ -21,6 +21,7 @@ import javafx.application.Application;
  * @author Brandon
  */
 public class Extract {
+    // Create all of the maps to be used by the search engine
     public Map<String,Entry> idDB = new HashMap();
     public Map<String,List<String>> firstNameDB = new HashMap();
     public Map<String,List<String>> surNameDB = new HashMap();
@@ -54,6 +55,7 @@ public class Extract {
             progress += 5;
             LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
             
+            // Create Buffered Reader and extract all lines from the website
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = new String();
             String tempLine;
@@ -66,16 +68,19 @@ public class Extract {
             progress += 5;
             LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
             
+            // Create JSON object for each line on website
             JSONObject obj = new JSONObject(line);
+            
             // Find number of Array entries
             int len = obj.getJSONArray("laureates").length();
             
             // Create all DB entries and append them to the maps using addToMaps
             for (int i = 0; i<len; i++){
-                
-                
+                // Update progress
                 progress = ((i*100)/len);
                 LauncherImpl.notifyPreloader(NobelUI, new Preloader.ProgressNotification(progress));
+                
+                // Create a blank Entry object
                 Entry tmpEntry = new Entry();
                 
                 // Add id to Entry
@@ -95,7 +100,7 @@ public class Extract {
                     tmpEntry.setLastName("");
                 }
                 
-                // Check if Death year is blank (When the winner is an institution)
+                // Check if Birth year is blank (When the winner is an institution)
                 if(obj.getJSONArray("laureates").getJSONObject(i).getString("born").equals("0000-00-00")){
                     tmpEntry.setBirthyear("");
                 }else{
@@ -220,13 +225,8 @@ public class Extract {
                     // Blank Prize Array
                 }
                 // Entry should be fully created
-                
                 addToMaps(tmpEntry);
-                
             }
-            
-            
-            
         } catch (IOException e){
             System.err.println("Caught IOException: " + e.getMessage());
         }
@@ -237,6 +237,8 @@ public class Extract {
      * @param ent - Entry object
      */
     private void addToMaps(Entry ent){
+        // Add entry to all of the above maps that we created
+        
         // idDB
         if (!ent.getId().equals("")){
             idDB.put(ent.getId().toString(), ent);
@@ -353,6 +355,7 @@ public class Extract {
                 prizeYearDB.get(year).add(ent.getId().toString());
             }
         }
+        
         // prizeCategoryDB
         if (ent.getPrizeCats() != null){
             List<String> cats = ent.getPrizeCats();
