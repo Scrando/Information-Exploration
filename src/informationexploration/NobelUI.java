@@ -74,6 +74,10 @@ public class NobelUI extends Application {
 
         applicationStage = primaryStage;
         
+        //create borderpane and an inset object for padding
+        BorderPane borderpane = new BorderPane();
+        Insets insets = new Insets(25);
+        
         //Create title label
         Label title = new Label("Nobel Prize Search");
         title.setFont(new Font("Arial", 30));
@@ -131,9 +135,23 @@ public class NobelUI extends Application {
         lastSearch.setFont(new Font("Arial", 15));
         lastSearch.setTextAlignment(TextAlignment.CENTER);
         root.getChildren().add(lastSearch);
+        
+        //defining close button
+        Button close = new Button("Close");
+        close.setOnAction((ActionEvent e) -> {
+            ((Node)(e.getSource())).getScene().getWindow().hide();
+        });
+        
+        //add close button to root
+        HBox hbox1 = new HBox(close);
+        hbox1.setAlignment(Pos.CENTER);
+        
+        borderpane.setCenter(root);
+        borderpane.setBottom(hbox1);
+        BorderPane.setMargin(hbox1, insets);
 
         // Create scene and show application stage.
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
+        Scene scene = new Scene(borderpane, WIDTH, HEIGHT);
         applicationStage.setScene(scene);
         primaryStage.setTitle("Nobel Prize Database");
         applicationStage.show();
@@ -225,12 +243,26 @@ public class NobelUI extends Application {
                 i++;
             }
         }
+        
+        //defining close button
+        Button close = new Button("Close");
+        close.setOnAction((ActionEvent e) -> {
+            ((Node)(e.getSource())).getScene().getWindow().hide();
+        });
+        
+        //add close button to hbox for alignment
+        HBox hbox = new HBox(close);
+        hbox.setAlignment(Pos.CENTER);
+        
         //place vbox and scrollpane into borderpane with margins
         borderpane.setTop(root);
         BorderPane.setMargin(root, insets);
         
         borderpane.setCenter(scrollPane);
         BorderPane.setMargin(scrollPane, insets);
+        
+        borderpane.setBottom(hbox);
+        BorderPane.setMargin(hbox, insets);
         
         //create and show stage
         Stage stage = new Stage();
@@ -316,6 +348,22 @@ public class NobelUI extends Application {
                   .append(prize.getPrizeYear()
             );
             entryInfo.getChildren().add(new Label(prizes.toString()));
+            List<Affiliation> affils = prize.getAffiliations();
+            
+            //write affiliation info for each prize, allowing for multiples
+            for (Affiliation affil : affils) {
+                StringBuilder affiliation = new StringBuilder();
+                value = (String) affil.getAffiliationName();
+                if (!value.equals(""))
+                    affiliation.append("Affiliated with: ")
+                               .append(value)
+                               .append(". ")
+                               .append(affil.getAffiliationCity())
+                               .append(", ")
+                               .append(affil.getAffiliationCountry()
+                    );
+                entryInfo.getChildren().add(new Label(affiliation.toString()));
+            }
         }
         
         //defining close button

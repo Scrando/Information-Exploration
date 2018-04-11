@@ -204,7 +204,7 @@ public class Extract {
 
                                 // Add Country to Affiliation
                                 if(affArray.getJSONObject(z).has("country")){
-                                    tmpAff.setAffiliationName(affArray.getJSONObject(z).getString("country"));
+                                    tmpAff.setAffiliationCountry(affArray.getJSONObject(z).getString("country"));
                                 }else{
                                     tmpAff.setAffiliationCountry("");
                                 }
