@@ -17,13 +17,23 @@ public abstract class SearchSetID {
     private final Map<String,Entry> Data;
     private Set<String> IDs;
     Set<Entry> results;
-    
+    /**
+     * Sets the search term
+     * @param data 
+     */
     public SearchSetID (Map<String,Entry> data) {
         Data = data;
     }
-    
+    /**
+     * include's our search term
+     * @param IDs
+     * @return 
+     */
     abstract boolean include (Set<String> IDs);
-    
+    /**
+     * executes our search 
+     * @return results
+     */
     public Set<Entry> Execute() {
         results = new HashSet<>();
          for(String n : IDs){
